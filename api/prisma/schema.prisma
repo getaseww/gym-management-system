@@ -24,14 +24,13 @@ model User {
   image String?
 
   roleId  String    @unique
-  Role    Role      @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  Class   Class[]   @relation("userId")
-  Class2  Class[]   @relation("instructorId")
-  Payment Payment[]
+  role    Role      @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  class   Class[]   @relation("userId")
+  class2  Class[]   @relation("instructorId")
+  payment Payment[]
 
   @@index([roleId])
 }
-
 
 model Role {
   id   String @id @default(uuid())
@@ -39,7 +38,7 @@ model Role {
 
   createdAt DateTime? @default(now()) @db.Timestamp(0)
   updatedAt DateTime? @db.Timestamp(0)
-  User      User?
+  user      User?
 }
 
 model MembershipPlan {
@@ -50,8 +49,8 @@ model MembershipPlan {
 
   createdAt  DateTime?    @default(now()) @db.Timestamp(0)
   updatedAt  DateTime?    @db.Timestamp(0)
-  Membership Membership[]
-  Payment    Payment?
+  membership Membership[]
+  payment    Payment?
 }
 
 model Membership {
@@ -63,7 +62,7 @@ model Membership {
   updatedAt DateTime? @db.Timestamp(0)
 
   membershipPlanId String
-  MembershipPlan   MembershipPlan @relation(fields: [membershipPlanId], references: [id], onDelete: Cascade)
+  membershipPlan   MembershipPlan @relation(fields: [membershipPlanId], references: [id], onDelete: Cascade)
 }
 
 model Class {
@@ -74,14 +73,14 @@ model Class {
   endDate     DateTime
 
   userId String
-  User   User   @relation("userId", fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user   User   @relation("userId", fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   instructorId String
-  Instructor   User   @relation("instructorId", fields: [instructorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  instructor   User   @relation("instructorId", fields: [instructorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   createdAt  DateTime?    @default(now()) @db.Timestamp(0)
   updatedAt  DateTime?    @db.Timestamp(0)
-  Attendance Attendance[]
+  attendance Attendance[]
 }
 
 model Attendance {
@@ -91,7 +90,7 @@ model Attendance {
   checkInTime  String?
   checkOutTime String?
   classId      String
-  Class        Class    @relation(fields: [classId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  class        Class    @relation(fields: [classId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   createdAt DateTime? @default(now()) @db.Timestamp(0)
   updatedAt DateTime? @db.Timestamp(0)
@@ -104,10 +103,10 @@ model Payment {
   status  String
 
   membershipPlanId String         @unique
-  MembershipPlan   MembershipPlan @relation(fields: [membershipPlanId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  membershipPlan   MembershipPlan @relation(fields: [membershipPlanId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   userId String
-  Useer  User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  useer  User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   createdAt DateTime? @default(now()) @db.Timestamp(0)
   updatedAt DateTime? @db.Timestamp(0)
@@ -117,32 +116,32 @@ model EquipmentCategory {
   id          String      @id @default(uuid())
   name        String
   description String?
-  Equipment   Equipment[]
+  equipment   Equipment[]
 }
 
 model Equipment {
-  id                 String    @id @default(uuid())
-  equipmentName      String
-  brand              String?
-  price              Float?
-  model              String?
-  status             String?
+  id            String  @id @default(uuid())
+  equipmentName String
+  brand         String?
+  price         Float?
+  model         String?
+  status        String?
 
   purchaseDate       DateTime?
   warrantyExpiryDate DateTime?
   description        String?   @db.Text()
 
   equipmentCategoryId String
-  EquipmentCategory   EquipmentCategory @relation(fields: [equipmentCategoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  equipmentCategory   EquipmentCategory @relation(fields: [equipmentCategoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   createdAt DateTime?   @default(now()) @db.Timestamp(0)
   updatedAt DateTime?   @db.Timestamp(0)
-  Inventory Inventory[]
+  inventory Inventory[]
 }
 
 model Inventory {
   id          String    @id @default(uuid())
   quantity    Int
   equipmentId String
-  Equipment   Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  equipment   Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
