@@ -9,7 +9,10 @@ export type User = {
     roleId: string,
     createdAt?: Date,
     updatedAt: Date,
-    role: Role,
+    role?: Role,
+    class?:Class,
+    instructor?:User,
+    payment?:Payment,
 }
 
 export type Role = {
@@ -17,7 +20,7 @@ export type Role = {
     name: string,
     createdAt?: Date,
     updatedAt?: Date,
-    user: User
+    user?: User
 }
 
 export type Membership = {
@@ -29,7 +32,19 @@ export type Membership = {
     createdAt?: Date,
     updatedAt?: Date,
 }
-
+export type Class={
+    id?:string,
+    className:string,
+    description?:string,
+    startDate?:Date,
+    endDate?:Date,
+    userId?:string;
+    instructorId?:string,
+    
+    createdAt?: Date,
+    updatedAt?: Date,
+    attendance?:Attendance
+}
 export type Attendance={
     id?:string,
     date:Date,
@@ -41,18 +56,7 @@ export type Attendance={
     updatedAt?: Date,
 }
 
-export type Class={
-    id?:string,
-    className:string,
-    description?:string,
-    startDate?:Date,
-    endDate?:Date,
-    userId:string;
-    instructorId:string,
-    
-    createdAt?: Date,
-    updatedAt?: Date,
-}
+
 
 export type Payment = {
     id?: string,
@@ -70,18 +74,21 @@ export type Payment = {
 
 export type MembershipPlan = {
     id?: string,
-    name: string,
+    planName: string,
+    description:string,
+    price:number,
     createdAt?: Date,
-    updatedAt: Date,
-    user: User
+    updatedAt?: Date,
+    user: User,
+    payment:Payment[],
 }
 
 export type EquipmentCategory = {
     id?: string,
     name: string,
     createdAt?: Date,
-    updatedAt: Date,
-    equipment: Equipment[],
+    updatedAt?: Date,
+    equipment?: Equipment[],
 }
 
 export type Equipment = {
@@ -96,9 +103,9 @@ export type Equipment = {
     equipmentCategoryId: string,
     description?: string,
     createdAt?: Date,
-    updatedAt: Date,
+    updatedAt?: Date,
 
-    inventory: Inventory[]
+    inventory?: Inventory[]
 
 }
 
@@ -107,5 +114,6 @@ export type Inventory = {
     equipmentId: string,
     quantity: number,
     createdAt?: Date,
-    updatedAt: Date,
+    updatedAt?: Date,
+    equipment?:Equipment,
 }

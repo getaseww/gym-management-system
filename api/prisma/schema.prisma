@@ -26,7 +26,7 @@ model User {
   roleId  String    @unique
   role    Role      @relation(fields: [roleId], references: [id], onDelete: Cascade)
   class   Class[]   @relation("userId")
-  class2  Class[]   @relation("instructorId")
+  instructor  Class[]   @relation("instructorId")
   payment Payment[]
 
   @@index([roleId])
