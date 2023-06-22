@@ -40,6 +40,20 @@ class PaymentDal {
         });
     }
 
+    findById = (id: string) => {
+        return new Promise((resolve, reject) => {
+            prisma.payment.findUnique({
+                where: { id },
+            })
+                .then((result: Payment) => {
+                    resolve(result)
+                })
+                .catch((error: any) => {
+                    reject(error)
+                });
+        });
+    }
+
     update = (payment: Payment, payload: any) => {
         return new Promise((resolve, reject) => {
             if (payment) {
@@ -83,4 +97,4 @@ class PaymentDal {
     }
 }
 
-module.exports = new PaymentDal;
+export default new PaymentDal;

@@ -40,6 +40,20 @@ class EquipmentDal {
         });
     }
 
+    findById = (id: string) => {
+        return new Promise((resolve, reject) => {
+            prisma.equipment.findUnique({
+                where: { id },
+            })
+                .then((result: Equipment) => {
+                    resolve(result)
+                })
+                .catch((error: any) => {
+                    reject(error)
+                });
+        });
+    }
+
     update = (equipment: Equipment, payload: any) => {
         return new Promise((resolve, reject) => {
             if (equipment) {
@@ -89,4 +103,4 @@ class EquipmentDal {
     }
 }
 
-module.exports = new EquipmentDal;
+export default new EquipmentDal;

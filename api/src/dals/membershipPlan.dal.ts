@@ -40,6 +40,20 @@ class MembershipPlanDal {
         });
     }
 
+    findById = (id: string) => {
+        return new Promise((resolve, reject) => {
+            prisma.membershipPlan.findUnique({
+                where: { id },
+            })
+                .then((result: MembershipPlan) => {
+                    resolve(result)
+                })
+                .catch((error: any) => {
+                    reject(error)
+                });
+        });
+    }
+
     update = (membershipPlan: MembershipPlan, payload: any) => {
         return new Promise((resolve, reject) => {
             if (membershipPlan) {
@@ -82,4 +96,4 @@ class MembershipPlanDal {
     }
 }
 
-module.exports = new MembershipPlanDal;
+export default new MembershipPlanDal;

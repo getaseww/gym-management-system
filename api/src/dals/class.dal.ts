@@ -38,7 +38,19 @@ class ClassDal {
                 });
         });
     }
-
+    findById = (id: string) => {
+        return new Promise((resolve, reject) => {
+            prisma.class.findUnique({
+                where: { id },
+            })
+                .then((result: Class) => {
+                    resolve(result)
+                })
+                .catch((error: any) => {
+                    reject(error)
+                });
+        });
+    }
     update = (c:Class, payload:any) => {
         return new Promise((resolve, reject) => {
             if (c) {
@@ -84,4 +96,4 @@ class ClassDal {
     }
 }
 
-module.exports = new ClassDal;
+export default new ClassDal;

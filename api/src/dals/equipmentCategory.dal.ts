@@ -40,6 +40,20 @@ class EquipmentCategoryDal {
         });
     }
 
+    findById = (id: string) => {
+        return new Promise((resolve, reject) => {
+            prisma.equipmentCategory.findUnique({
+                where: { id },
+            })
+                .then((result: EquipmentCategory) => {
+                    resolve(result)
+                })
+                .catch((error: any) => {
+                    reject(error)
+                });
+        });
+    }
+
     update = (equipmentCategory: EquipmentCategory, payload: any) => {
         return new Promise((resolve, reject) => {
             if (equipmentCategory) {
@@ -81,4 +95,4 @@ class EquipmentCategoryDal {
     }
 }
 
-module.exports = new EquipmentCategoryDal;
+export default new EquipmentCategoryDal;

@@ -23,11 +23,12 @@ model User {
 
   image String?
 
-  roleId  String    @unique
-  role    Role      @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  class   Class[]   @relation("userId")
-  instructor  Class[]   @relation("instructorId")
-  payment Payment[]
+  roleId     String       @unique
+  role       Role         @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  class      Class[]      @relation("userId")
+  instructor Class[]      @relation("instructorId")
+  payment    Payment[]
+  Attendance Attendance[]
 
   @@index([roleId])
 }
@@ -68,7 +69,7 @@ model Membership {
 model Class {
   id          String   @id @default(uuid())
   className   String
-  description String   @db.Text()
+  description String?   @db.Text()
   startDate   DateTime
   endDate     DateTime
 
@@ -92,6 +93,8 @@ model Attendance {
   classId      String
   class        Class    @relation(fields: [classId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   createdAt DateTime? @default(now()) @db.Timestamp(0)
   updatedAt DateTime? @db.Timestamp(0)
 }
@@ -116,6 +119,8 @@ model EquipmentCategory {
   id          String      @id @default(uuid())
   name        String
   description String?
+  createdAt   DateTime?   @default(now()) @db.Timestamp(0)
+  updatedAt   DateTime?   @db.Timestamp(0)
   equipment   Equipment[]
 }
 
@@ -140,8 +145,12 @@ model Equipment {
 }
 
 model Inventory {
-  id          String    @id @default(uuid())
+  id          String @id @default(uuid())
   quantity    Int
   equipmentId String
-  equipment   Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+  updatedAt DateTime? @db.Timestamp(0)
+
+  equipment Equipment @relation(fields: [equipmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }

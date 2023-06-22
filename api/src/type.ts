@@ -9,10 +9,10 @@ export type User = {
     roleId: string,
     createdAt?: Date,
     updatedAt: Date,
-    role?: Role,
-    class?:Class,
-    instructor?:User,
-    payment?:Payment,
+    // role?: Role,
+    // class?:Class,
+    // instructor?:User,
+    // payment?:Payment,
 }
 
 export type Role = {
@@ -20,7 +20,7 @@ export type Role = {
     name: string,
     createdAt?: Date,
     updatedAt?: Date,
-    user?: User
+    // user?: User
 }
 
 export type Membership = {
@@ -36,22 +36,23 @@ export type Class={
     id?:string,
     className:string,
     description?:string,
-    startDate?:Date,
-    endDate?:Date,
-    userId?:string;
-    instructorId?:string,
+    startDate:Date,
+    endDate:Date,
+    userId:string;
+    instructorId:string,
     
     createdAt?: Date,
     updatedAt?: Date,
-    attendance?:Attendance
+    // attendance?:Attendance
 }
 export type Attendance={
     id?:string,
     date:Date,
     checkInTime?:string,
-    checkOutTime?:String,
+    checkOutTime?:string,
     status:string,
     classId:string,
+    userId:string,
     createdAt?: Date,
     updatedAt?: Date,
 }
@@ -69,7 +70,7 @@ export type Payment = {
     createdAt?: Date,
     updatedAt: Date,
 
-    user?: User
+    // user?: User
 }
 
 export type MembershipPlan = {
@@ -79,8 +80,8 @@ export type MembershipPlan = {
     price:number,
     createdAt?: Date,
     updatedAt?: Date,
-    user: User,
-    payment:Payment[],
+    // user: User,
+    // payment:Payment[],
 }
 
 export type EquipmentCategory = {
@@ -88,7 +89,7 @@ export type EquipmentCategory = {
     name: string,
     createdAt?: Date,
     updatedAt?: Date,
-    equipment?: Equipment[],
+    // equipment?: Equipment[],
 }
 
 export type Equipment = {
@@ -105,7 +106,7 @@ export type Equipment = {
     createdAt?: Date,
     updatedAt?: Date,
 
-    inventory?: Inventory[]
+    // inventory?: Inventory[]
 
 }
 
@@ -115,5 +116,5 @@ export type Inventory = {
     quantity: number,
     createdAt?: Date,
     updatedAt?: Date,
-    equipment?:Equipment,
+    // equipment?:Equipment,
 }

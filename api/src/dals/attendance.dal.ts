@@ -1,48 +1,62 @@
-import {prisma} from '../config/db'
+import { prisma } from '../config/db'
 import { Attendance } from '../type';
 
 
 class AttendanceDal {
-    create(payload:Attendance) {
+    create(payload: Attendance) {
         return new Promise((resolve, reject) => {
             prisma.attendance.create({ data: payload })
-                .then((result:Attendance) => resolve(result))
-                .catch((error:any) => reject(error));
+                .then((result: Attendance) => resolve(result))
+                .catch((error: any) => reject(error));
         });
     }
 
-    findMany = (query:any) => {
+    findMany = (query: any) => {
         return new Promise((resolve, reject) => {
             prisma.attendance.findMany({
                 where: query,
-                orderBy:[
+                orderBy: [
                     {
-                        createdAt:'asc'
+                        createdAt: 'asc'
                     }
                 ]
             })
-                .then((result:Attendance[]) => resolve(result))
-                .catch((error:any) => reject(error));
+                .then((result: Attendance[]) => resolve(result))
+                .catch((error: any) => reject(error));
         })
     }
 
-    findOne = (query:any) => {
+    findOne = (query: any) => {
         return new Promise((resolve, reject) => {
             prisma.attendance.findUnique({
                 where: query,
             })
-                .then((result:Attendance) => {
-                    resolve(result)})
-                .catch((error:any) => {
+                .then((result: Attendance) => {
+                    resolve(result)
+                })
+                .catch((error: any) => {
+                    reject(error)
+                });
+        });
+    }
+    findById = (id: string) => {
+        return new Promise((resolve, reject) => {
+            prisma.attendance.findUnique({
+                where: { id },
+            })
+                .then((result: Attendance) => {
+                    resolve(result)
+                })
+                .catch((error: any) => {
                     reject(error)
                 });
         });
     }
 
-    update = (attendance:Attendance, payload:any) => {
+    update = (attendance: Attendance, payload: any) => {
         return new Promise((resolve, reject) => {
             if (attendance) {
-                let data:any = {};
+                let data: any = {};
                 if (payload.status) data.status = payload.status;
                 if (payload.date) data.date = payload.date;
                 if (payload.checkInTime) data.checkInTime = payload.checkInTime;
@@ -53,14 +67,14 @@ class AttendanceDal {
                     where: { id: attendance.id },
                     data,
                 })
-                    .then((result:Attendance) => {
+                    .then((result: Attendance) => {
                         if (result) {
                             resolve(result)
                         } else {
                             resolve(null)
                         }
                     })
-                    .catch((error:any) => {
+                    .catch((error: any) => {
                         reject(error)
                     });
             } else {
@@ -69,19 +83,19 @@ class AttendanceDal {
         });
     }
 
-    remove = (query:any) => {
+    remove = (query: any) => {
         return new Promise((resolve, reject) => {
             prisma.attendance.delete({ where: query })
-                .then((result:any) => {
+                .then((result: any) => {
                     if (result) {
                         resolve("Deleted successfully!")
                     } else {
                         resolve(null)
                     }
                 })
-                .catch((error:any) => reject(error));
+                .catch((error: any) => reject(error));
         });
     }
 }
 
-module.exports = new AttendanceDal;
+export default new AttendanceDal;

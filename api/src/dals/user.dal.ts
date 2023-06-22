@@ -39,6 +39,20 @@ class UserDal {
         });
     }
 
+    findById = (id: string) => {
+        return new Promise((resolve, reject) => {
+            prisma.user.findUnique({
+                where: { id },
+            })
+                .then((result: User) => {
+                    resolve(result)
+                })
+                .catch((error: any) => {
+                    reject(error)
+                });
+        });
+    }
+
     update = (user:User, payload:any) => {
         return new Promise((resolve, reject) => {
             if (user) {
@@ -84,4 +98,4 @@ class UserDal {
     }
 }
 
-module.exports = new UserDal;
+export default new UserDal;

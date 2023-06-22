@@ -40,6 +40,20 @@ class InventoryDal {
         });
     }
 
+    findById = (id: string) => {
+        return new Promise((resolve, reject) => {
+            prisma.inventory.findUnique({
+                where: { id },
+            })
+                .then((result: Inventory) => {
+                    resolve(result)
+                })
+                .catch((error: any) => {
+                    reject(error)
+                });
+        });
+    }
+
     update = (inventory: Inventory, payload: any) => {
         return new Promise((resolve, reject) => {
             if (inventory) {
@@ -82,4 +96,4 @@ class InventoryDal {
     }
 }
 
-module.exports = new InventoryDal;
+export default new InventoryDal;

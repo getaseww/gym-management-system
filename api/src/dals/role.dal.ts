@@ -81,4 +81,4 @@ class RoleDal {
     }
 }
 
-module.exports = new RoleDal;
+export default new RoleDal;
