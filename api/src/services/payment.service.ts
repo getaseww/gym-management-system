@@ -24,7 +24,7 @@ class PaymentService {
     findMany(query: any) {
         return new Promise((resolve, reject) => {
             PaymentDal.findMany(query).then((result) => resolve(result))
-                .catch((error) => reject(new CustomError(error, 500, "ERR001")))
+                .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }
 
@@ -33,14 +33,14 @@ class PaymentService {
     findById(query:any) {
         return new Promise((resolve, reject) => {
             PaymentDal.findById(query).then((result) => resolve(result))
-                .catch((error) => reject(new CustomError(error, 500, "ERR001")))
+                .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }
 
     findOne(query:any) {
         return new Promise((resolve, reject) => {
             PaymentDal.findOne(query).then((result) => resolve(result))
-                .catch((error) => reject(new CustomError(error, 500, "ERR001")))
+                .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }
 
@@ -53,12 +53,12 @@ class PaymentService {
                             if (payment) {
                                 done(null, payment)
                             } else {
-                                done(new CustomError("Payment not found", 404, "ERR002"), null);
+                                done(new CustomError("Payment not found", 404, "Not Found"), null);
                             }
                         })
                         .catch((error) => {
                             console.log(error);
-                            done(new CustomError(error, 500, "ERR001"), null)
+                            done(new CustomError(error, 500, "Internal Server Error"), null)
                         })
                 },
                 (payment:Payment, done:Function) => {
@@ -67,11 +67,11 @@ class PaymentService {
                             if (result) {
                                 done(null, result)
                             } else {
-                                done(new CustomError("Payment not found", 404, "ERR002"))
+                                done(new CustomError("Payment not found", 404, "Not Found"))
                             }
                         })
                         .catch((error) => {
-                            done(new CustomError(error, 500, "ERR001"))
+                            done(new CustomError(error, 500, "Internal Server Error"))
                         })
                 }
             ], (error:any, result:any) => {
@@ -88,10 +88,10 @@ class PaymentService {
                     if (result) {
                         resolve(result)
                     } else {
-                        reject(new CustomError("Payment not found  with this id", 404, "ERR002"))
+                        reject(new CustomError("Payment not found  with this id", 404, "Not Found"))
                     }
                 })
-                .catch((error) => reject(new CustomError(error, 500, "ERR001")))
+                .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }
 

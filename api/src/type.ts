@@ -118,3 +118,9 @@ export type Inventory = {
     updatedAt?: Date,
     // equipment?:Equipment,
 }
+
+export type Error={
+    message?:string,
+    errorCode?:string,
+    statusCode?:number,
+}

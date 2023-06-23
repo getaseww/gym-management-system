@@ -24,7 +24,7 @@ class RoleService {
     findMany(query: any) {
         return new Promise((resolve, reject) => {
             RoleDal.findMany(query).then((result) => resolve(result))
-                .catch((error) => reject(new CustomError(error, 500, "ERR001")))
+                .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }
 
@@ -33,14 +33,14 @@ class RoleService {
     // findById(query:any) {
     //     return new Promise((resolve, reject) => {
     //         RoleDal.findById(query).then((result) => resolve(result))
-    //             .catch((error) => reject(new CustomError(error, 500, "ERR001")))
+    //             .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
     //     })
     // }
 
     findOne(query:any) {
         return new Promise((resolve, reject) => {
             RoleDal.findOne(query).then((result) => resolve(result))
-                .catch((error) => reject(new CustomError(error, 500, "ERR001")))
+                .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }
 
@@ -53,12 +53,12 @@ class RoleService {
                             if (role) {
                                 done(null, role)
                             } else {
-                                done(new CustomError("Role not found", 404, "ERR002"), null);
+                                done(new CustomError("Role not found", 404, "Not Found"), null);
                             }
                         })
                         .catch((error) => {
                             console.log(error);
-                            done(new CustomError(error, 500, "ERR001"), null)
+                            done(new CustomError(error, 500, "Internal Server Error"), null)
                         })
                 },
                 (role:Role, done:Function) => {
@@ -67,11 +67,11 @@ class RoleService {
                             if (result) {
                                 done(null, result)
                             } else {
-                                done(new CustomError("Role not found", 404, "ERR002"))
+                                done(new CustomError("Role not found", 404, "Not Found"))
                             }
                         })
                         .catch((error) => {
-                            done(new CustomError(error, 500, "ERR001"))
+                            done(new CustomError(error, 500, "Internal Server Error"))
                         })
                 }
             ], (error:any, result:any) => {
@@ -88,10 +88,10 @@ class RoleService {
                     if (result) {
                         resolve(result)
                     } else {
-                        reject(new CustomError("Role not found  with this id", 404, "ERR002"))
+                        reject(new CustomError("Role not found  with this id", 404, "Not Found"))
                     }
                 })
-                .catch((error) => reject(new CustomError(error, 500, "ERR001")))
+                .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }
 
