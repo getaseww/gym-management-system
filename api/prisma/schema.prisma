@@ -43,15 +43,15 @@ model Role {
 }
 
 model MembershipPlan {
-  id          String  @id @default(uuid())
+  id          String       @id @default(uuid())
   planName    String
-  description String? @db.Text()
+  description String?      @db.Text()
   price       Float
-
-  createdAt  DateTime?    @default(now()) @db.Timestamp(0)
-  updatedAt  DateTime?    @db.Timestamp(0)
-  membership Membership[]
-  payment    Payment?
+  image       String?
+  createdAt   DateTime?    @default(now()) @db.Timestamp(0)
+  updatedAt   DateTime?    @db.Timestamp(0)
+  membership  Membership[]
+  payment     Payment?
 }
 
 model Membership {
@@ -69,7 +69,7 @@ model Membership {
 model Class {
   id          String   @id @default(uuid())
   className   String
-  description String?   @db.Text()
+  description String?  @db.Text()
   startDate   DateTime
   endDate     DateTime
 

@@ -3,7 +3,6 @@ import AttendanceService from "../services/attendance.service";
 import { Attendance, Error } from "../type";
 import { BadRequestError } from "../errors/errors";
 import { z } from 'zod'
-import { error } from "console";
 
 class AttendanceController {
 
@@ -97,9 +96,9 @@ class AttendanceController {
         AttendanceService.update(id, payload)
             .then((result) => {
                 if (result) {
-                    response.status(200).json(true)
+                    response.status(200).json(result)
                 } else {
-                    response.status(400).json("")
+                    response.status(400).json("Can't update with this id!")
                 }
             }).catch((error) => {
                 response.status(error.statusCode).json({ "error": error.errorCode, "message": error.message });
