@@ -12,3 +12,14 @@ export class BadRequestError extends Error{
       Error.captureStackTrace(this, this.constructor);
     }
 }
+
+export class NotAuthenticatedError extends Error {
+  errorCode: number;
+
+  constructor(message?: string) {
+    super(message || "User is not authenticated.");
+    this.name = "NotAuthenticatedError";
+    this.errorCode = 401; 
+  }
+}
+
