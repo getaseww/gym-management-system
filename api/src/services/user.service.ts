@@ -2,13 +2,16 @@ import async from 'async'
 import UserDal from '../dals/user.dal'
 import CustomError from '../errors/customError';
 import { User } from '../type';
+import { encryptPassword } from '../utils/helpers';
 
 class UserService {
     create(payload: User) {
         return new Promise((resolve, reject) => {
             async.waterfall([
                 (done: Function) => {
-                    UserDal.create(payload).then((result) => done(null, result))
+                    const { password, ...data } = payload
+                    const encPassword = encryptPassword(password)
+                    UserDal.create({password:encPassword,...data}).then((result) => done(null, result))
                         .catch((error) => {
                             console.log(error);
                             done(error, null)
@@ -39,7 +42,9 @@ class UserService {
 
     findOne(query:any) {
         return new Promise((resolve, reject) => {
-            UserDal.findOne(query).then((result) => resolve(result))
+            UserDal.findOne(query).then((result) => {
+                console.log("user from service",result)
+                resolve(result)})
                 .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }

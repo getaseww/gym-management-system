@@ -2,11 +2,10 @@ import UserService from '../services/user.service';
 import bcrypt from 'bcrypt';
 import passportJwt from 'passport-jwt';
 import {Strategy} from 'passport-local';
-import prisma from 'prisma';
 import { User } from '../type';
 
 
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// export const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const security = {
     saltRound: 10,
@@ -14,14 +13,14 @@ const security = {
     token_expiration: 60 * 60 * 24 * 30,
 };
 
-const localStrategy = new Strategy(
+export const localStrategy = new Strategy(
     {
         usernameField: "email",
         passwordField: "password",
     },
     (email:string, password:string, done:Function) => {
         UserService.findOne({ email })
-            .then((user:User) => {
+            .then((user:any) => {
                 if (!user) {
                     return done(null, false, {
                         message: "Login Failed: Invalid Email or password!",
@@ -50,7 +49,7 @@ const localStrategy = new Strategy(
     }
 );
 
-const jwtStrategy = new passportJwt.Strategy(
+export const jwtStrategy = new passportJwt.Strategy(
     {
         jwtFromRequest: passportJwt.ExtractJwt.fromAuthHeaderAsBearerToken(),
         secretOrKey: process.env.TOKEN_KEY,
@@ -71,18 +70,19 @@ const jwtStrategy = new passportJwt.Strategy(
     }
 );
 
-const googleStrategy= new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/api/user/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    // Callback function when user successfully signs in with Google
-    // You can perform actions like creating/updating user in your database
-    // and then call the `done` function to proceed with authentication.
-    // In this example, we simply pass the `profile` to the `done` function.
-    return done(null, profile);
-  }
-);
+// export const googleStrategy= new GoogleStrategy({
+//     clientID: process.env.GOOGLE_CLIENT_ID,
+//     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//     callbackURL: "/api/user/auth/google/callback"
+//   },
+//   function(accessToken, refreshToken, profile, done) {
+//     // Callback function when user successfully signs in with Google
+//     // You can perform actions like creating/updating user in your database
+//     // and then call the `done` function to proceed with authentication.
+//     // In this example, we simply pass the `profile` to the `done` function.
+//     return done(null, profile);
+//   }
+// );
 
-export default { localStrategy, jwtStrategy, security,googleStrategy };
+
+

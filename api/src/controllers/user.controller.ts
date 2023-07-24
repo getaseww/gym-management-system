@@ -23,7 +23,8 @@ class UserController {
             schema.parseAsync(data)
             UserService.create(data)
                 .then((result: User) => {
-                    response.status(200).json(result);
+                    const {password,...data}=result;
+                    response.status(200).json(data);
                 })
                 .catch((error: Error) => {
                     response.status(error.statusCode).json(error.message);
@@ -37,8 +38,9 @@ class UserController {
     static findById(request: Request, response: Response) {
         let id = request.params.id
         UserService.findById({ id: id })
-            .then((result) => {
-                response.status(200).json(result);
+            .then((result:User) => {
+                const {password,...data}=result;
+                response.status(200).json(data);
             }).catch((error) => {
                 response.status(error.statusCode).json({ "error": error.errorCode, "message": error.message });
             })
@@ -50,8 +52,9 @@ class UserController {
             query = { ...query, name: request.query.name }
 
         UserService.findOne(query)
-            .then((result) => {
-                response.status(200).json(result);
+            .then((result:User) => {
+                const {password,...data}=result;
+                response.status(200).json(data);
             }).catch((error) => {
                 response.status(error.statusCode).json({ "error": error.errorCode, "message": error.message });
             })
@@ -63,8 +66,9 @@ class UserController {
             query = { ...query, name: request.query.name }
 
         UserService.findMany(query)
-            .then((result) => {
-                response.status(200).json(result)
+            .then((result:User[]) => {
+                const data=  result.map(({ password, ...rest }) => rest);
+                response.status(200).json(data)
             })
             .catch((error: Error) => {
                 response.status(error.statusCode).json({ "error": error.errorCode, "message": error.message });

@@ -1,11 +1,9 @@
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
-import {prisma} from '../config/db'
+import { prisma } from '../config/db'
 import { Request, Response } from "express";
-import passportConfig from '../passport/passport.config';
-import {NotAuthenticatedError} from '../errors/errors';
 
-const authentication = (req:Request, res:Response, next) => {
+export const authentication = (req: Request, res: Response, next: Function) => {
     if (!req.body.email) {
         return res.status(400).json({
             message: "email is required!",
@@ -17,21 +15,24 @@ const authentication = (req:Request, res:Response, next) => {
         });
     }
 
-    passport.authenticate('local', { session: false }, (error, user, info) => {
+    console.log("above strategy")
+
+    passport.authenticate('local', { session: false }, (error: any, user: any, info: any) => {
+        console.log("error log")
         console.log("ERROR >>>  ", error);
         if (error) {
             return res.status(500).send(error);
         } else if (!user) {
             return res
                 .status(401)
-                .json({ message: "Login Failed: Invalid Username or password!" });
+                .json({ message: "Login Failed: Invalid Email or password!" });
         } else {
             req.logIn(user, { session: false }, (error) => {
                 console.log("ER >>>  ", error);
                 if (error) {
                     return res
                         .status(401)
-                        .json({ message: "Login Failed: Invalid Username or password!" });
+                        .json({ message: "Login Failed: Invalid Email or password!" });
                 } else {
                     console.log("success", user)
                     req.user = user;
@@ -43,25 +44,25 @@ const authentication = (req:Request, res:Response, next) => {
     })(req, res, next);
 };
 
-const response = (req, res) => {
-    let user = req.user;
+export const response = (req: any, res: Response) => {
+    let user: any = req.user;
     res.status(200).json({
         token: req.token,
-        fullNname: user.fullName,
-        userName: user.userName,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         roleId: user.roleId,
         id: user.id,
-        mobileNumber: user.mobileNumber,
-        isVerified: user.isVerified,
+        phoneNumber: user.phoneNumber,
+        sex: user.sex,
     });
 };
 
 
-const authenticateHeader = (
-    req,
-    res,
-    next
+export const authenticateHeader = (
+    req: Request,
+    res: Response,
+    next: Function
 ) => {
     const authentication_header = req.headers.authorization;
     const token = authentication_header && authentication_header.split(" ")[1];
@@ -81,9 +82,9 @@ const authenticateHeader = (
 };
 
 
-const protect = async (req, res, next) => {
-    let token
-    let decoded
+export const protect = async (req: Request, res: Response, next: Function) => {
+    let token: string
+    let decoded: any
     if (
         req.headers.authorization &&
         req.headers.authorization.startsWith('Bearer')
@@ -110,13 +111,13 @@ const protect = async (req, res, next) => {
     }
 }
 
-const generateToken = (req, res, next) => {
+export const generateToken = (req: any, res: Response, next: Function) => {
     console.log("from req body", req.user)
-    let user = req.user;
+    let user: any = req.user;
     req.token = jwt.sign(
         {
             id: user.id,
-            fullName: user.fullName,
+            email: user.email,
         },
         process.env.TOKEN_KEY
     );
@@ -124,14 +125,3 @@ const generateToken = (req, res, next) => {
     next();
 };
 
-
-
-const auth = {
-    authentication,
-    authenticateHeader,
-    generateToken,
-    protect,
-    response,
-}
-
-module.exports = auth

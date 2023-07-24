@@ -1,5 +1,3 @@
-import CustomError from "./customError";
-
 export class BadRequestError extends Error{
     statusCode: number;
     errorCode: string;
