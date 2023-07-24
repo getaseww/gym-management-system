@@ -11,7 +11,6 @@ class PaymentController {
         const schema = z.object({
             amount: z.number(),
             membershipPlanId: z.string(),
-            status: z.string(),
             userId: z.string(),
             trx_ref: z.string()
         })
@@ -37,7 +36,7 @@ class PaymentController {
 
     static findById(request: Request, response: Response) {
         let id = request.params.id
-        PaymentService.findById({ id: id })
+        PaymentService.findById(id )
             .then((result) => {
                 response.status(200).json(result);
             }).catch((error) => {

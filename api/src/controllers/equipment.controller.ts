@@ -14,8 +14,8 @@ class EquipmentController {
             price: z.number().optional(),
             model: z.string().optional(),
             status: z.string().optional(),
-            purchaseDate: z.date().optional(),
-            warrantyExpiryDate: z.date().optional(),
+            purchaseDate: z.string().optional(),
+            warrantyExpiryDate: z.string().optional(),
             description: z.string().optional(),
             equipmentCategoryId: z.string()
         })
@@ -41,7 +41,7 @@ class EquipmentController {
 
     static findById(request: Request, response: Response) {
         let id = request.params.id
-        EquipmentService.findById({ id: id })
+        EquipmentService.findById(id)
             .then((result) => {
                 response.status(200).json(result);
             }).catch((error) => {

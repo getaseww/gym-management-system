@@ -34,7 +34,8 @@ class InventoryController {
 
     static findById(request: Request, response: Response) {
         let id = request.params.id
-        InventoryService.findById({ id: id })
+        console.log("inv id",id);
+        InventoryService.findById(id)
             .then((result) => {
                 response.status(200).json(result);
             }).catch((error) => {

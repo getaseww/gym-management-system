@@ -9,7 +9,7 @@ class AttendanceController {
     static create(request: Request, response: Response) {
 
         const schema = z.object({
-            date: z.date(),
+            date: z.string(),
             status: z.string(),
             checkInTime: z.string().optional(),
             checkOutTime: z.string().optional(),
@@ -38,7 +38,7 @@ class AttendanceController {
 
     static findById(request: Request, response: Response) {
         let id = request.params.id
-        AttendanceService.findById({ id: id })
+        AttendanceService.findById(id )
             .then((result) => {
                 response.status(200).json(result);
             }).catch((error) => {

@@ -37,7 +37,7 @@ class UserController {
     }
     static findById(request: Request, response: Response) {
         let id = request.params.id
-        UserService.findById({ id: id })
+        UserService.findById(id)
             .then((result:User) => {
                 const {password,...data}=result;
                 response.status(200).json(data);

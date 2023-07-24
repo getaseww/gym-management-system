@@ -31,9 +31,9 @@ class AttendanceService {
 
 
 
-    findById(query:any) {
+    findById(id:any) {
         return new Promise((resolve, reject) => {
-            attendanceDal.findById(query).then((result) => resolve(result))
+            attendanceDal.findById(id).then((result) => resolve(result))
                 .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }

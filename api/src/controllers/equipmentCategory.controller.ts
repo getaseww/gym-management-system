@@ -10,6 +10,7 @@ class EquipmentCategoryController {
 
         const schema = z.object({
             name: z.string(),
+            description:z.string().optional(),
         })
 
         const data = request.body;
@@ -33,7 +34,7 @@ class EquipmentCategoryController {
 
     static findById(request: Request, response: Response) {
         let id = request.params.id
-        EquipmentCategoryService.findById({ id: id })
+        EquipmentCategoryService.findById( id )
             .then((result) => {
                 response.status(200).json(result);
             }).catch((error) => {

@@ -11,8 +11,8 @@ class ClassController {
         const schema = z.object({
             className: z.string(),
             description: z.string().optional(),
-            startDate: z.date(),
-            endDate: z.date(),
+            startDate: z.string(),
+            endDate: z.string(),
             userId: z.string(),
             instructorId: z.string(),
         })
@@ -38,7 +38,7 @@ class ClassController {
 
     static findById(request: Request, response: Response) {
         let id = request.params.id
-        ClassService.findById({ id: id })
+        ClassService.findById(id)
             .then((result) => {
                 response.status(200).json(result);
             }).catch((error) => {

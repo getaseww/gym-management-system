@@ -30,9 +30,9 @@ class ClassService {
 
 
 
-    findById(query:any) {
+    findById(id:string) {
         return new Promise((resolve, reject) => {
-            ClassDal.findById(query).then((result) => resolve(result))
+            ClassDal.findById(id).then((result) => resolve(result))
                 .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }

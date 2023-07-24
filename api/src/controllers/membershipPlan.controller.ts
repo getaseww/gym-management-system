@@ -10,8 +10,8 @@ class MembershipPlanController {
 
         const schema = z.object({
             planName: z.string(),
-            description: z.string(),
-            status:z.string(),
+            description: z.string().optional(),
+            price:z.number(),
             image:z.string().optional()
         })
 
@@ -36,7 +36,7 @@ class MembershipPlanController {
 
     static findById(request: Request, response: Response) {
         let id = request.params.id
-        MembershipPlanService.findById({ id: id })
+        MembershipPlanService.findById(id )
             .then((result) => {
                 response.status(200).json(result);
             }).catch((error) => {

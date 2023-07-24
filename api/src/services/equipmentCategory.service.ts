@@ -30,9 +30,9 @@ class EquipmentCategoryService {
 
 
 
-    findById(query:any) {
+    findById(id:string) {
         return new Promise((resolve, reject) => {
-            EquipmentCategoryDal.findById(query).then((result) => resolve(result))
+            EquipmentCategoryDal.findById(id).then((result) => resolve(result))
                 .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }

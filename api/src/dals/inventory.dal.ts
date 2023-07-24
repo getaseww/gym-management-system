@@ -42,7 +42,7 @@ class InventoryDal {
 
     findById = (id: string) => {
         return new Promise((resolve, reject) => {
-            prisma.inventory.findUnique({
+            prisma.inventory.findFirst({
                 where: { id },
             })
                 .then((result: Inventory) => {
