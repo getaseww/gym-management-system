@@ -3,14 +3,14 @@ import PaymentController from "../controllers/payment.controller";
 
 let router: Router = express.Router();
 
-router.post("/",  PaymentController.create)
-.get("/",  PaymentController.findMany)
+router.post("/", PaymentController.create)
+    .get("/", PaymentController.findMany)
 
-.get("/:id",  PaymentController.findById)
+    .get("/:id", PaymentController.findById)
 
-.put("/",  PaymentController.update)
+    .put("/", PaymentController.update)
 
-.delete("/:id",  PaymentController.remove)
+    .delete("/:id", PaymentController.remove)
 
 
 export default router;

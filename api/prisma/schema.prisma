@@ -102,8 +102,8 @@ model Attendance {
 model Payment {
   id      String @id @default(uuid())
   amount  Float
-  trx_ref String
-  status  String
+  trx_ref String 
+  status  String @default("pending")
 
   membershipPlanId String         @unique
   membershipPlan   MembershipPlan @relation(fields: [membershipPlanId], references: [id], onDelete: Cascade, onUpdate: Cascade)
