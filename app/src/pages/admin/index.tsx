@@ -1,11 +1,11 @@
-import React from 'react'
-import Layout from '../../layouts/admin'
+import Layout from '../../components/sidebar/Layout'
+import Classes from './class'
 
 export default function Dashboard() {
   return (
-    <div>
+    <div className='w-full'>
       <Layout>
-        <h1>hello this is home page</h1>
+        {/* <Classes/> */}
       </Layout>
     </div>
   )

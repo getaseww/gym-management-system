@@ -1,10 +1,15 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns:{
+        'sidebar':`300px  calc(100vw - 300px)`,
+        'sidebar-collapsed':"100px  calc(100vw - 100px)"
+      }},
   },
   plugins: [],
 }
