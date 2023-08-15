@@ -5,6 +5,8 @@ import {
   FolderIcon,
   HomeIcon,
   UserGroupIcon,
+  BanknotesIcon,
+
 } from "@heroicons/react/24/outline";
 // define a NavItem prop
 export type NavItem = {
@@ -19,18 +21,48 @@ export const defaultNavItems: NavItem[] = [
     icon: <HomeIcon className="w-6 h-6" />,
   },
   {
-    label: "Team",
-    href: "/team",
+    label: "Payments",
+    href: "/payments",
+    icon: <BanknotesIcon className="w-6 h-6" />,
+  },
+  {
+    label: "Instructors",
+    href: "/instructor",
     icon: <UserGroupIcon className="w-6 h-6" />,
   },
   {
-    label: "Projects",
-    href: "/projects",
+    label: "Memebers",
+    href: "/members",
+    icon: <UserGroupIcon className="w-6 h-6" />,
+  },
+  {
+    label: "Classes",
+    href: "/classes",
     icon: <FolderIcon className="w-6 h-6" />,
   },
   {
-    label: "Calendar",
-    href: "/calendar",
+    label: "Attendance",
+    href: "/attendance",
+    icon: <FolderIcon className="w-6 h-6" />,
+  },
+  {
+    label: "Membership Plans",
+    href: "/membership_plan",
+    icon: <CalendarIcon className="w-6 h-6" />,
+  },
+  {
+    label: "Equipment Category",
+    href: "/equipment_category",
+    icon: <CalendarIcon className="w-6 h-6" />,
+  },
+  {
+    label: "Equipment",
+    href: "/equipment",
+    icon: <CalendarIcon className="w-6 h-6" />,
+  },
+  {
+    label: "Inventory",
+    href: "/inventory",
     icon: <CalendarIcon className="w-6 h-6" />,
   },
 ];

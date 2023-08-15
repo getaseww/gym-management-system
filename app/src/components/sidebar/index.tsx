@@ -70,7 +70,7 @@ const Sidebar = ({
                     "rounded-full p-2 mx-3 w-10 h-10": collapsed,
                   })}
                 >
-                  <Link to={item.href} className="flex gap-2 z-30" >
+                  <Link to={item.href} className="flex gap-2 z-30 text-white" >
                     {item.icon} <span>{!collapsed && item.label}</span>
                   </Link>
                 </li>
