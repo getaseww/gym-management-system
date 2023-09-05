@@ -2,9 +2,12 @@ import async from 'async'
 import PaymentDal from '../dals/payment.dal'
 import CustomError from '../errors/customError';
 import { Payment } from '../type';
+import axios from 'axios';
+import { paymentHeader } from '../utils/helpers';
 
 class PaymentService {
-    create(payload: Payment) {
+
+    initPayment(payload:any){
         return new Promise((resolve, reject) => {
             async.waterfall([
                 (done: Function) => {
@@ -13,6 +16,45 @@ class PaymentService {
                             console.log(error);
                             done(error, null)
                         })
+                }
+            ], (error: any, result: any) => {
+                if (error) reject(error)
+                else resolve(result)
+            })
+        })
+    }
+
+    create(payload: Payment) {
+        return new Promise((resolve, reject) => {
+            async.waterfall([
+                (done: Function) => {
+                    const data={
+                        userId:payload.userId,
+                        membershipPlanId:payload.membershipPlanId,
+                        trx_ref:payload.trx_ref,
+                        amount:payload.amount,
+                    }
+                    PaymentDal.create(data).then((result) => done(null, result))
+                        .catch((error) => {
+                            console.log(error);
+                            done(error, null)
+                        })
+                },
+                (done:Function)=>{
+                    const {membershipPlanId,userId,...data}=payload;
+                    axios.post(
+                        'https://api.chapa.co/v1/transaction/initialize',
+                        data,
+                        paymentHeader
+                    ).then((result)=>{
+                        if(result.data.status === 'success'){
+                            done(null,result.data.data.checkout_url)
+                        }else{
+                            done(result.data.message,null)
+                        }
+                    }).catch((error)=>{
+                        done( new CustomError(error,500,"Internal server problem!"),null)
+                    })
                 }
             ], (error: any, result: any) => {
                 if (error) reject(error)

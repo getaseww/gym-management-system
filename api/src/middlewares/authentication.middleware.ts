@@ -112,7 +112,6 @@ export const protect = async (req: Request, res: Response, next: Function) => {
 }
 
 export const generateToken = (req: any, res: Response, next: Function) => {
-    console.log("from req body", req.user)
     let user: any = req.user;
     req.token = jwt.sign(
         {

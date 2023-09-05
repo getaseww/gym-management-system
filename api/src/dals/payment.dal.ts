@@ -3,7 +3,7 @@ import { Payment } from '../type';
 
 
 class PaymentDal {
-    create(payload: Payment) {
+    create(payload: any) {
         return new Promise((resolve, reject) => {
             prisma.payment.create({ data: payload })
                 .then((result: Payment) => resolve(result))

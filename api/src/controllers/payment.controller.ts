@@ -3,8 +3,34 @@ import PaymentService from "../services/payment.service";
 import { Payment, Error } from "../type";
 import { BadRequestError } from "../errors/errors";
 import { z } from 'zod'
+import { generateTrxRef } from "../utils/helpers";
 
 class PaymentController {
+    static initPayment(request: Request, response: Response) {
+        const body = request.body;
+        const user:any=request.user;
+        const data = {
+            membershipPlanId:body.membershipPlanId,
+            userId:user.id,
+            amount: body.amount,
+            currency: "ETB",
+            email: body.email,
+            first_name: body.firstName,
+            last_name: body.lastName,
+            phone_number: body.phoneNumber,
+            tx_ref: generateTrxRef(),
+            callback_url: '',
+            return_url: '',
+        }
+
+        PaymentService.initPayment(data)
+            .then((result) => {
+                response.status(200).json(result);
+            }).catch((error) => {
+                response.status(error.statusCode).json({ "error": error.errorCode, "message": error.message });
+            })
+
+    }
 
     static create(request: Request, response: Response) {
 
@@ -16,6 +42,7 @@ class PaymentController {
         })
 
         const data = request.body;
+        
         try {
             schema.parseAsync(data)
             PaymentService.create(data)
@@ -27,7 +54,6 @@ class PaymentController {
                 });
         } catch (error) {
             let err = new BadRequestError(JSON.stringify(error));
-
             response.status(error.statusCode).json({ "error": err.errorCode, "message": err.message });
 
         }
@@ -36,7 +62,7 @@ class PaymentController {
 
     static findById(request: Request, response: Response) {
         let id = request.params.id
-        PaymentService.findById(id )
+        PaymentService.findById(id)
             .then((result) => {
                 response.status(200).json(result);
             }).catch((error) => {
@@ -63,7 +89,7 @@ class PaymentController {
         let query = {}
         if (request.query.amount && request.query.amount != "undefined")
             query = { ...query, amount: request.query.amount }
-            
+
         if (request.query.status && request.query.status != "undefined")
             query = { ...query, status: request.query.status }
 
