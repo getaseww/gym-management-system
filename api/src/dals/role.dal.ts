@@ -1,25 +1,25 @@
-import {prisma} from '../config/db'
-import { Role, User } from '../type';
+import { Role as RoleType, User } from '../type';
+import {Role} from '../models/Role';
 
 
 class RoleDal {
     create(payload:Role) {
         return new Promise((resolve, reject) => {
-            prisma.role.create({ data: payload })
+            Role.create({ data: payload })
                 .then((result:Role) => resolve(result))
                 .catch((error:any) => reject(error));
         });
     }
 
-    findMany = (query:any) => {
+    findAll = (query:any) => {
         return new Promise((resolve, reject) => {
-            prisma.role.findMany({
+            Role.findAll({
                 where: query,
-                orderBy:[
-                    {
-                        name:'asc'
-                    }
-                ]
+                // orderBy:[
+                //     {
+                //         name:'asc'
+                //     }
+                // ]
             })
                 .then((result:Role[]) => resolve(result))
                 .catch((error:any) => reject(error));
@@ -28,7 +28,7 @@ class RoleDal {
 
     findOne = (query:any) => {
         return new Promise((resolve, reject) => {
-            prisma.role.findUnique({
+            Role.findOne({
                 where: query,
             })
                 .then((result:Role) => {
@@ -42,14 +42,8 @@ class RoleDal {
     update = (role:Role, payload:any) => {
         return new Promise((resolve, reject) => {
             if (role) {
-                let data:any = {};
-                if (payload.name) data.name = payload.name;
-
-
-                prisma.role.update({
-                    where: { id: role.id },
-                    data,
-                })
+                if (payload.name) role.name = payload.name;
+                role.save()
                     .then((result:Role) => {
                         if (result) {
                             resolve(result)
@@ -68,7 +62,7 @@ class RoleDal {
 
     remove = (query:any) => {
         return new Promise((resolve, reject) => {
-            prisma.role.delete({ where: query })
+            Role.destroy({ where: query })
                 .then((result:any) => {
                     if (result) {
                         resolve("Deleted successfully!")

@@ -85,7 +85,7 @@ class PaymentController {
             })
     }
 
-    static findMany(request: Request, response: Response) {
+    static findAll(request: Request, response: Response) {
         let query = {}
         if (request.query.amount && request.query.amount != "undefined")
             query = { ...query, amount: request.query.amount }
@@ -93,7 +93,7 @@ class PaymentController {
         if (request.query.status && request.query.status != "undefined")
             query = { ...query, status: request.query.status }
 
-        PaymentService.findMany(query)
+        PaymentService.findAll(query)
             .then((result) => {
                 response.status(200).json(result)
             })

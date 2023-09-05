@@ -78,7 +78,7 @@ class EquipmentController {
             })
     }
 
-    static findMany(request: Request, response: Response) {
+    static findAll(request: Request, response: Response) {
         let query = {}
         if (request.query.equipmentName && request.query.equipmentName != "undefined")
             query = { ...query, equipmentName: request.query.equipmentName }
@@ -100,7 +100,7 @@ class EquipmentController {
             query = { ...query, equipmentCategoryId: request.query.equipmentCategoryId }
 
 
-        EquipmentService.findMany(query)
+        EquipmentService.findAll(query)
             .then((result) => {
                 response.status(200).json(result)
             })

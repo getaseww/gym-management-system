@@ -4,7 +4,7 @@ import InventoryController from "../controllers/inventory.controller";
 let router: Router = express.Router();
 
 router.post("/",  InventoryController.create)
-.get("/",  InventoryController.findMany)
+.get("/",  InventoryController.findAll)
 
 .get("/:id",  InventoryController.findById)
 

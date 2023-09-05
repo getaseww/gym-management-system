@@ -1,25 +1,25 @@
-import { prisma } from '../config/db'
-import { EquipmentCategory } from '../type';
+import { EquipmentCategory as EquipmentCategoryType } from '../type';
+import {EquipmentCategory} from '../models/EquipmentCategory';
 
 
 class EquipmentCategoryDal {
     create(payload: EquipmentCategory) {
         return new Promise((resolve, reject) => {
-            prisma.equipmentCategory.create({ data: payload })
+            EquipmentCategory.create({ data: payload })
                 .then((result: EquipmentCategory) => resolve(result))
                 .catch((error: any) => reject(error));
         });
     }
 
-    findMany = (query: any) => {
+    findAll = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.equipmentCategory.findMany({
+            EquipmentCategory.findAll({
                 where: query,
-                orderBy: [
-                    {
-                        createdAt: 'asc'
-                    }
-                ]
+                // orderBy: [
+                //     {
+                //         createdAt: 'asc'
+                //     }
+                // ]
             })
                 .then((result: EquipmentCategory[]) => resolve(result))
                 .catch((error: any) => reject(error));
@@ -28,7 +28,7 @@ class EquipmentCategoryDal {
 
     findOne = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.equipmentCategory.findUnique({
+            EquipmentCategory.findOne({
                 where: query,
             })
                 .then((result: EquipmentCategory) => {
@@ -42,7 +42,7 @@ class EquipmentCategoryDal {
 
     findById = (id: string) => {
         return new Promise((resolve, reject) => {
-            prisma.equipmentCategory.findUnique({
+            EquipmentCategory.findOne({
                 where: { id },
             })
                 .then((result: EquipmentCategory) => {
@@ -58,13 +58,10 @@ class EquipmentCategoryDal {
         return new Promise((resolve, reject) => {
             if (equipmentCategory) {
                 let data: any = {};
-                if (payload.name) data.name = payload.name;
+                if (payload.name) equipmentCategory.name = payload.name;
 
-                prisma.equipmentCategory.update({
-                    where: { id: equipmentCategory.id },
-                    data,
-                })
-                    .then((result: EquipmentCategory) => {
+               
+                equipmentCategory.save().then((result: EquipmentCategory) => {
                         if (result) {
                             resolve(result)
                         } else {
@@ -82,7 +79,7 @@ class EquipmentCategoryDal {
 
     remove = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.equipmentCategory.delete({ where: query })
+            EquipmentCategory.destroy({ where: query })
                 .then((result: any) => {
                     if (result) {
                         resolve("Deleted successfully!")

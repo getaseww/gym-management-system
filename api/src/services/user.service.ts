@@ -24,9 +24,9 @@ class UserService {
         })
     }
 
-    findMany(query: any) {
+    findAll(query: any) {
         return new Promise((resolve, reject) => {
-            UserDal.findMany(query).then((result) => resolve(result))
+            UserDal.findAll(query).then((result) => resolve(result))
                 .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }

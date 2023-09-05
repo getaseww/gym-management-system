@@ -1,25 +1,25 @@
-import { prisma } from '../config/db'
-import { MembershipPlan } from '../type';
+import { MembershipPlan as MembershipPlanType } from '../type';
+import {MembershipPlan} from '../models/MembershipPlan';
 
 
 class MembershipPlanDal {
     create(payload: MembershipPlan) {
         return new Promise((resolve, reject) => {
-            prisma.membershipPlan.create({ data: payload })
+            MembershipPlan.create({ data: payload })
                 .then((result: MembershipPlan) => resolve(result))
                 .catch((error: any) => reject(error));
         });
     }
 
-    findMany = (query: any) => {
+    findAll = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.membershipPlan.findMany({
+            MembershipPlan.findAll({
                 where: query,
-                orderBy: [
-                    {
-                        createdAt: 'asc'
-                    }
-                ]
+                // orderBy: [
+                //     {
+                //         createdAt: 'asc'
+                //     }
+                // ]
             })
                 .then((result: MembershipPlan[]) => resolve(result))
                 .catch((error: any) => reject(error));
@@ -28,7 +28,7 @@ class MembershipPlanDal {
 
     findOne = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.membershipPlan.findUnique({
+            MembershipPlan.findOne({
                 where: query,
             })
                 .then((result: MembershipPlan) => {
@@ -42,7 +42,7 @@ class MembershipPlanDal {
 
     findById = (id: string) => {
         return new Promise((resolve, reject) => {
-            prisma.membershipPlan.findUnique({
+            MembershipPlan.findOne({
                 where: { id },
             })
                 .then((result: MembershipPlan) => {
@@ -58,13 +58,12 @@ class MembershipPlanDal {
         return new Promise((resolve, reject) => {
             if (membershipPlan) {
                 let data: any = {};
-                if (payload.equipmentId) data.equipmentId = payload.equipmentId;
-                if (payload.quantity) data.quantity = payload.quantity;
+                if (payload.planName) membershipPlan.planName = payload.planName;
+                if (payload.price) membershipPlan.price = payload.price;
+                if (payload.description) membershipPlan.description = payload.description;
+                if (payload.image) membershipPlan.image = payload.image;
 
-                prisma.membershipPlan.update({
-                    where: { id: membershipPlan.id },
-                    data,
-                })
+                membershipPlan.save()
                     .then((result: MembershipPlan) => {
                         if (result) {
                             resolve(result)
@@ -83,7 +82,7 @@ class MembershipPlanDal {
 
     remove = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.membershipPlan.delete({ where: query })
+            MembershipPlan.destroy({ where: query })
                 .then((result: any) => {
                     if (result) {
                         resolve("Deleted successfully!")

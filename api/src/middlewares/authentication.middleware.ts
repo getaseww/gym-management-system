@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
-import { prisma } from '../config/db'
 import { Request, Response } from "express";
+import {User} from '../models/User';
+
 
 export const authentication = (req: Request, res: Response, next: Function) => {
     if (!req.body.email) {
@@ -95,7 +96,7 @@ export const protect = async (req: Request, res: Response, next: Function) => {
             // Verify token
             decoded = jwt.verify(token, process.env.TOKEN_KEY)
             // Get user from the token
-            req.user = await prisma.user.findFirst({ where: { id: decoded.id } })
+            req.user = await User.findOne({ where: { id: decoded.id } })
             next()
         } catch (error) {
             res.status(401).json({

@@ -4,7 +4,7 @@ import MembershipPlanController from "../controllers/membershipPlan.controller";
 let router: Router = express.Router();
 
 router.post("/",  MembershipPlanController.create)
-.get("/",  MembershipPlanController.findMany)
+.get("/",  MembershipPlanController.findAll)
 
 .get("/:id",  MembershipPlanController.findById)
 

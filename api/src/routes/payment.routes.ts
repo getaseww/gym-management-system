@@ -6,7 +6,7 @@ let router: Router = express.Router();
 router
     .post("/", PaymentController.create)
     .post('/initialize',PaymentController.initPayment)
-    .get("/", PaymentController.findMany)
+    .get("/", PaymentController.findAll)
     .get("/:id", PaymentController.findById)
     .put("/", PaymentController.update)
     .delete("/:id", PaymentController.remove)

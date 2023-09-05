@@ -65,7 +65,7 @@ class AttendanceController {
             })
     }
 
-    static findMany(request: Request, response: Response) {
+    static findAll(request: Request, response: Response) {
         let query = {}
         if (request.query.date && request.query.date != "undefined")
             query = { ...query, date: request.query.date }
@@ -76,7 +76,7 @@ class AttendanceController {
         if (request.query.userId && request.query.userId != "undefined")
             query = { ...query, userId: request.query.userId }
 
-        AttendanceService.findMany(query)
+        AttendanceService.findAll(query)
             .then((result) => {
                 response.status(200).json(result)
             })

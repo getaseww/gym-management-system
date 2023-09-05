@@ -3,7 +3,7 @@ import EquipmentCategoryController from "../controllers/equipmentCategory.contro
 let router: Router = express.Router();
 
 router.post("/",  EquipmentCategoryController.create)
-.get("/",  EquipmentCategoryController.findMany)
+.get("/",  EquipmentCategoryController.findAll)
 
 .get("/:id",  EquipmentCategoryController.findById)
 

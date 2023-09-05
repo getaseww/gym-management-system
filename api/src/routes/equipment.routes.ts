@@ -4,7 +4,7 @@ import EquipmentController from "../controllers/equipment.controller";
 let router: Router = express.Router();
 
 router.post("/",  EquipmentController.create)
-.get("/",  EquipmentController.findMany)
+.get("/",  EquipmentController.findAll)
 
 .get("/:id",  EquipmentController.findById)
 

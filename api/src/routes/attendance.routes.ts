@@ -5,7 +5,7 @@ let router: Router = express.Router();
 
 router.post("/",  AttendanceController.create);
 
-router.get("/",  AttendanceController.findMany);
+router.get("/",  AttendanceController.findAll);
 
 router.get("/:id",  AttendanceController.findById);
 

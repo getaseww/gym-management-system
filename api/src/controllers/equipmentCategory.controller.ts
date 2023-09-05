@@ -57,14 +57,14 @@ class EquipmentCategoryController {
             })
     }
 
-    static findMany(request: Request, response: Response) {
+    static findAll(request: Request, response: Response) {
         let query = {}
         if (request.query.name && request.query.name != "undefined")
             query = { ...query, name: request.query.equipmentName }
         if (request.query.description && request.query.description != "undefined")
             query = { ...query, description: request.query.description }
 
-        EquipmentCategoryService.findMany(query)
+        EquipmentCategoryService.findAll(query)
             .then((result) => {
                 response.status(200).json(result)
             })

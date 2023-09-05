@@ -71,7 +71,7 @@ class ClassController {
             })
     }
 
-    static findMany(request: Request, response: Response) {
+    static findAll(request: Request, response: Response) {
         let query = {}
         if (request.query.className && request.query.className != "undefined")
             query = { ...query, className: request.query.className }
@@ -88,7 +88,7 @@ class ClassController {
         if (request.query.description && request.query.description != "undefined")
             query = { ...query, description: request.query.description }
 
-        ClassService.findMany(query)
+        ClassService.findAll(query)
             .then((result) => {
                 response.status(200).json(result)
             })

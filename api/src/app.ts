@@ -1,14 +1,15 @@
-import express,{Application, Request, Response } from 'express';
+import express, { Application, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import passport from "passport";
-import  { localStrategy, jwtStrategy } from './passport/passport.config'
+import { localStrategy, jwtStrategy } from './passport/passport.config'
 import expressSession from 'express-session'
 import cors from 'cors'
 import path from 'path'
 import routes from './routes';
 dotenv.config();
+import sequelize from './config/db';
 
-const app:Application = express();
+const app: Application = express();
 
 app.use(express.json({ limit: '25mb' }));
 app.use(express.urlencoded({ limit: '25mb' }));
@@ -43,6 +44,14 @@ app.use('/images', express.static(path.join(__dirname, "images")));
 routes(app);
 
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+sequelize.sync().then(result => {
+    if (result) {
+        app.listen(process.env.PORT || 8000, () => {
+            console.log("backend is running on port " + process.env.PORT);
+        })
+    } else {
+        console.log("Database not connected!")
+    }
+}).catch(error => {
+    console.log(error);
 });

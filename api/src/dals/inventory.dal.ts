@@ -1,25 +1,25 @@
-import { prisma } from '../config/db'
-import { Inventory } from '../type';
+import { Inventory as InventoryType} from '../type';
+import {Inventory} from '../models/Inventory';
 
 
 class InventoryDal {
     create(payload: Inventory) {
         return new Promise((resolve, reject) => {
-            prisma.inventory.create({ data: payload })
+            Inventory.create({ data: payload })
                 .then((result: Inventory) => resolve(result))
                 .catch((error: any) => reject(error));
         });
     }
 
-    findMany = (query: any) => {
+    findAll = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.inventory.findMany({
+            Inventory.findAll({
                 where: query,
-                orderBy: [
-                    {
-                        createdAt: 'asc'
-                    }
-                ]
+                // orderBy: [
+                //     {
+                //         createdAt: 'asc'
+                //     }
+                // ]
             })
                 .then((result: Inventory[]) => resolve(result))
                 .catch((error: any) => reject(error));
@@ -28,7 +28,7 @@ class InventoryDal {
 
     findOne = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.inventory.findUnique({
+            Inventory.findOne({
                 where: query,
             })
                 .then((result: Inventory) => {
@@ -42,7 +42,7 @@ class InventoryDal {
 
     findById = (id: string) => {
         return new Promise((resolve, reject) => {
-            prisma.inventory.findFirst({
+            Inventory.findOne({
                 where: { id },
             })
                 .then((result: Inventory) => {
@@ -58,14 +58,14 @@ class InventoryDal {
         return new Promise((resolve, reject) => {
             if (inventory) {
                 let data: any = {};
-                if (payload.equipmentId) data.equipmentId = payload.equipmentId;
-                if (payload.quantity) data.quantity = payload.quantity;
+                if (payload.equipmentId) inventory.equipmentId = payload.equipmentId;
+                if (payload.quantity) inventory.quantity = payload.quantity;
 
-                prisma.inventory.update({
-                    where: { id: inventory.id },
-                    data,
-                })
-                    .then((result: Inventory) => {
+                // Inventory.update({
+                //     where: { id: inventory.id },
+                //     inventory,
+                // })
+                inventory.save().then((result: Inventory) => {
                         if (result) {
                             resolve(result)
                         } else {
@@ -83,7 +83,7 @@ class InventoryDal {
 
     remove = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.inventory.delete({ where: query })
+            Inventory.destroy({ where: query })
                 .then((result: any) => {
                     if (result) {
                         resolve("Deleted successfully!")

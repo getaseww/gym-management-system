@@ -43,12 +43,12 @@ class RoleController {
             })
     }
 
-    static findMany(request: Request, response: Response) {
+    static findAll(request: Request, response: Response) {
         let query = {}
         if (request.query.name && request.query.name != "undefined")
             query = { ...query, name: request.query.name }
 
-        RoleService.findMany(query)
+        RoleService.findAll(query)
             .then((result) => {
                 response.status(200).json(result)
             })

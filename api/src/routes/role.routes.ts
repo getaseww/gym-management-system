@@ -5,7 +5,7 @@ let router: Router = express.Router();
 
 router.post("/", RoleController.create)
 
-    .get("/", RoleController.findMany)
+    .get("/", RoleController.findAll)
 
     .put("/", RoleController.update)
 

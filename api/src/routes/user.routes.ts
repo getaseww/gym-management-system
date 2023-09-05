@@ -6,7 +6,7 @@ let router: Router = express.Router();
 
 router.post("/register", UserController.create, generateToken, response)
     .post("/login", authentication, generateToken, response)
-    .get("/", UserController.findMany)
+    .get("/", UserController.findAll)
 
     .get("/:id", UserController.findById)
 

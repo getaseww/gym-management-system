@@ -1,37 +1,36 @@
-import {prisma} from '../config/db'
 import { Class } from '../type';
-
+import { FitnessClass } from '../models/FitnessClass';
 
 class ClassDal {
     create(payload:Class) {
         return new Promise((resolve, reject) => {
-            prisma.class.create({ data: payload })
-                .then((result:Class) => resolve(result))
+            FitnessClass.create({ data: payload })
+                .then((result) => resolve(result))
                 .catch((error:any) => reject(error));
         });
     }
 
-    findMany = (query:any) => {
+    findAll = (query:any) => {
         return new Promise((resolve, reject) => {
-            prisma.class.findMany({
+            FitnessClass.findAll({
                 where: query,
-                orderBy:[
-                    {
-                        createdAt:'asc'
-                    }
-                ]
+                // orderBy:[
+                //     {
+                //         createdAt:'asc'
+                //     }
+                // ]
             })
-                .then((result:Class[]) => resolve(result))
+                .then((result) => resolve(result))
                 .catch((error:any) => reject(error));
         })
     }
 
     findOne = (query:any) => {
         return new Promise((resolve, reject) => {
-            prisma.class.findUnique({
+            FitnessClass.findOne({
                 where: query,
             })
-                .then((result:Class) => {
+                .then((result) => {
                     resolve(result)})
                 .catch((error:any) => {
                     reject(error)
@@ -40,10 +39,10 @@ class ClassDal {
     }
     findById = (id: string) => {
         return new Promise((resolve, reject) => {
-            prisma.class.findUnique({
+            FitnessClass.findOne({
                 where: { id },
             })
-                .then((result: Class) => {
+                .then((result) => {
                     resolve(result)
                 })
                 .catch((error: any) => {
@@ -51,21 +50,17 @@ class ClassDal {
                 });
         });
     }
-    update = (c:Class, payload:any) => {
+    update = (c:FitnessClass, payload:any) => {
         return new Promise((resolve, reject) => {
             if (c) {
-                let data:any = {};
-                if (payload.className) data.className = payload.className;
-                if (payload.description) data.description = payload.description;
-                if (payload.startDate) data.startDate = payload.startDate;
-                if (payload.endDate) data.endDate = payload.endDate;
+                if (payload.className) c.className = payload.className;
+                if (payload.description) c.description = payload.description;
+                if (payload.startDate) c.startDate = payload.startDate;
+                if (payload.endDate) c.endDate = payload.endDate;
 
 
-                prisma.class.update({
-                    where: { id: c.id },
-                    data,
-                })
-                    .then((result:Class) => {
+                c.save()
+                    .then((result) => {
                         if (result) {
                             resolve(result)
                         } else {
@@ -83,7 +78,7 @@ class ClassDal {
 
     remove = (query:any) => {
         return new Promise((resolve, reject) => {
-            prisma.class.delete({ where: query })
+            FitnessClass.destroy({ where: query })
                 .then((result:any) => {
                     if (result) {
                         resolve("Deleted successfully!")

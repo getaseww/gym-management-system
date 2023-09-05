@@ -55,12 +55,12 @@ class InventoryController {
             })
     }
 
-    static findMany(request: Request, response: Response) {
+    static findAll(request: Request, response: Response) {
         let query = {}
         if (request.query.quantity && request.query.quantity != "undefined")
             query = { ...query, quantity: request.query.quantity }
 
-        InventoryService.findMany(query)
+        InventoryService.findAll(query)
             .then((result) => {
                 response.status(200).json(result)
             })

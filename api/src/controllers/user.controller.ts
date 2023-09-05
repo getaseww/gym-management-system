@@ -60,12 +60,12 @@ class UserController {
             })
     }
 
-    static findMany(request: Request, response: Response) {
+    static findAll(request: Request, response: Response) {
         let query = {}
         if (request.query.name && request.query.name != "undefined")
             query = { ...query, name: request.query.name }
 
-        UserService.findMany(query)
+        UserService.findAll(query)
             .then((result:User[]) => {
                 const data=  result.map(({ password, ...rest }) => rest);
                 response.status(200).json(data)

@@ -21,9 +21,9 @@ class RoleService {
         })
     }
 
-    findMany(query: any) {
+    findAll(query: any) {
         return new Promise((resolve, reject) => {
-            RoleDal.findMany(query).then((result) => resolve(result))
+            RoleDal.findAll(query).then((result) => resolve(result))
                 .catch((error) => reject(new CustomError(error, 500, "Internal Server Error")))
         })
     }

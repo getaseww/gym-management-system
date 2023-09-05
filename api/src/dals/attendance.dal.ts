@@ -1,25 +1,24 @@
-import { prisma } from '../config/db'
-import { Attendance } from '../type';
-
+import { Attendance as AttendanceType } from '../type';
+import { Attendance } from '../models/Attendance';
 
 class AttendanceDal {
     create(payload: Attendance) {
         return new Promise((resolve, reject) => {
-            prisma.attendance.create({ data: payload })
+            Attendance.create({ data: payload })
                 .then((result: Attendance) => resolve(result))
                 .catch((error: any) => reject(error));
         });
     }
 
-    findMany = (query: any) => {
+    findAll = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.attendance.findMany({
+            Attendance.findAll({
                 where: query,
-                orderBy: [
-                    {
-                        createdAt: 'asc'
-                    }
-                ]
+                // orderBy: [
+                //     {
+                //         createdAt: 'asc'
+                //     }
+                // ]
             })
                 .then((result: Attendance[]) => resolve(result))
                 .catch((error: any) => reject(error));
@@ -28,7 +27,7 @@ class AttendanceDal {
 
     findOne = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.attendance.findUnique({
+            Attendance.findOne({
                 where: query,
             })
                 .then((result: Attendance) => {
@@ -41,7 +40,7 @@ class AttendanceDal {
     }
     findById = (id: string) => {
         return new Promise((resolve, reject) => {
-            prisma.attendance.findUnique({
+            Attendance.findOne({
                 where: { id },
             })
                 .then((result: Attendance) => {
@@ -56,24 +55,19 @@ class AttendanceDal {
     update = (attendance: Attendance, payload: any) => {
         return new Promise((resolve, reject) => {
             if (attendance) {
-                let data: any = {};
-                if (payload.status) data.status = payload.status;
-                if (payload.date) data.date = payload.date;
-                if (payload.checkInTime) data.checkInTime = payload.checkInTime;
-                if (payload.checkOutTime) data.checkOutTime = payload.checkOutTime;
+                if (payload.status) attendance.status = payload.status;
+                if (payload.date) attendance.date = payload.date;
+                if (payload.checkInTime) attendance.checkInTime = payload.checkInTime;
+                if (payload.checkOutTime) attendance.checkOutTime = payload.checkOutTime;
 
 
-                prisma.attendance.update({
-                    where: { id: attendance.id },
-                    data,
+                attendance.save().then((result: Attendance) => {
+                    if (result) {
+                        resolve(result)
+                    } else {
+                        resolve(null)
+                    }
                 })
-                    .then((result: Attendance) => {
-                        if (result) {
-                            resolve(result)
-                        } else {
-                            resolve(null)
-                        }
-                    })
                     .catch((error: any) => {
                         reject(error)
                     });
@@ -85,7 +79,7 @@ class AttendanceDal {
 
     remove = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.attendance.delete({ where: query })
+            Attendance.destroy({ where: query })
                 .then((result: any) => {
                     if (result) {
                         resolve("Deleted successfully!")

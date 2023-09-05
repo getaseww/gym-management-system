@@ -1,25 +1,24 @@
-import { prisma } from '../config/db'
-import { Payment } from '../type';
-
+import { Payment as PaymentType } from '../type';
+import { Payment } from '../models/Payment';
 
 class PaymentDal {
     create(payload: any) {
         return new Promise((resolve, reject) => {
-            prisma.payment.create({ data: payload })
+            Payment.create({ data: payload })
                 .then((result: Payment) => resolve(result))
                 .catch((error: any) => reject(error));
         });
     }
 
-    findMany = (query: any) => {
+    findAll = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.payment.findMany({
+            Payment.findAll({
                 where: query,
-                orderBy: [
-                    {
-                        createdAt: 'asc'
-                    }
-                ]
+                // order: [
+                //     {
+                //         createdAt: 'asc'
+                //     }
+                // ]
             })
                 .then((result: Payment[]) => resolve(result))
                 .catch((error: any) => reject(error));
@@ -28,10 +27,10 @@ class PaymentDal {
 
     findOne = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.payment.findUnique({
+            Payment.findOne({
                 where: query,
             })
-                .then((result: Payment) => {
+                .then((result) => {
                     resolve(result)
                 })
                 .catch((error: any) => {
@@ -42,10 +41,10 @@ class PaymentDal {
 
     findById = (id: string) => {
         return new Promise((resolve, reject) => {
-            prisma.payment.findUnique({
+            Payment.findOne({
                 where: { id },
             })
-                .then((result: Payment) => {
+                .then((result) => {
                     resolve(result)
                 })
                 .catch((error: any) => {
@@ -57,16 +56,12 @@ class PaymentDal {
     update = (payment: Payment, payload: any) => {
         return new Promise((resolve, reject) => {
             if (payment) {
-                let data: any = {};
-                if (payload.amount) data.amount = payload.amount;
-                if (payload.trx_ref) data.trx_ref = payload.trx_ref;
-                if (payload.status) data.status = payload.status;
+                if (payload.amount) payment.amount = payload.amount;
+                if (payload.trx_ref) payment.trx_ref = payload.trx_ref;
+                if (payload.status) payment.status = payload.status;
 
-                prisma.payment.update({
-                    where: { id: payment.id },
-                    data,
-                })
-                    .then((result: Payment) => {
+                payment.save()
+                    .then((result) => {
                         if (result) {
                             resolve(result)
                         } else {
@@ -84,7 +79,7 @@ class PaymentDal {
 
     remove = (query: any) => {
         return new Promise((resolve, reject) => {
-            prisma.payment.delete({ where: query })
+            Payment.destroy({ where: query })
                 .then((result: any) => {
                     if (result) {
                         resolve("Deleted successfully!")

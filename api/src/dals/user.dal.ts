@@ -1,25 +1,24 @@
-import {prisma} from '../config/db'
-import { User } from '../type';
-
+import { User as UserType } from '../type';
+import { User } from '../models/User';
 
 class UserDal {
     create(payload:User) {
         return new Promise((resolve, reject) => {
-            prisma.user.create({ data: payload })
+            User.create({ data: payload })
                 .then((result:User) => resolve(result))
                 .catch((error:any) => reject(error));
         });
     }
 
-    findMany = (query:any) => {
+    findAll = (query:any) => {
         return new Promise((resolve, reject) => {
-            prisma.user.findMany({
+            User.findAll({
                 where: query,
-                orderBy:[
-                    {
-                        createdAt:'asc'
-                    }
-                ]
+                // orderBy:[
+                //     {
+                //         createdAt:'asc'
+                //     }
+                // ]
             })
                 .then((result:User[]) => resolve(result))
                 .catch((error:any) => reject(error));
@@ -28,7 +27,7 @@ class UserDal {
 
     findOne = (query:any) => {
         return new Promise((resolve, reject) => {
-            prisma.user.findUnique({
+            User.findOne({
                 where: query,
             })
                 .then((result:User) => {
@@ -41,7 +40,7 @@ class UserDal {
 
     findById = (id: string) => {
         return new Promise((resolve, reject) => {
-            prisma.user.findUnique({
+            User.findOne({
                 where: { id },
             })
                 .then((result: User) => {
@@ -56,17 +55,13 @@ class UserDal {
     update = (user:User, payload:any) => {
         return new Promise((resolve, reject) => {
             if (user) {
-                let data:any = {};
-                if (payload.firstName) data.firstName = payload.firstName;
-                if (payload.lastName) data.lastName = payload.lastName;
-                if (payload.email) data.email = payload.email;
-                if (payload.phoneNumber) data.phoneNumber = payload.phoneNumber;
+                if (payload.firstName) user.firstName = payload.firstName;
+                if (payload.lastName) user.lastName = payload.lastName;
+                if (payload.email) user.email = payload.email;
+                if (payload.phoneNumber) user.phoneNumber = payload.phoneNumber;
 
 
-                prisma.user.update({
-                    where: { id: user.id },
-                    data,
-                })
+               user.save()
                     .then((result:User) => {
                         if (result) {
                             resolve(result)
@@ -85,7 +80,7 @@ class UserDal {
 
     remove = (query:any) => {
         return new Promise((resolve, reject) => {
-            prisma.user.delete({ where: query })
+            User.destroy({ where: query })
                 .then((result:any) => {
                     if (result) {
                         resolve("Deleted successfully!")
