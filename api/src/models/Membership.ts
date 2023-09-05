@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { MembershipPlan } from "./membershipPlan"; // Import the MembershipPlan model if it's defined in a separate file
+import { MembershipPlan } from "./MembershipPlan"; // Import the MembershipPlan model if it's defined in a separate file
 
 export class Membership extends Model {
   public id!: string;
@@ -8,7 +8,7 @@ export class Membership extends Model {
   public status!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
-  public membershipPlanId!: string;
+  public membershipPlanId!: number;
 }
 
 export default (sequelize: Sequelize) => {
@@ -32,7 +32,7 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       membershipPlanId: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
@@ -41,8 +41,6 @@ export default (sequelize: Sequelize) => {
       modelName: "membership",
       tableName: "memberships",
       timestamps: true,
-      createdAt: 'createdAt',
-      updatedAt: 'updatedAt',
     }
   );
 

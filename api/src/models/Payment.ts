@@ -1,14 +1,14 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { MembershipPlan } from "./membershipPlan"; // Import the MembershipPlan model if it's defined in a separate file
-import { User } from "./user"; // Import the User model if it's defined in a separate file
+import { MembershipPlan } from "./MembershipPlan"; // Import the MembershipPlan model if it's defined in a separate file
+import { User } from "./User"; // Import the User model if it's defined in a separate file
 
 export class Payment extends Model {
   public id!: string;
   public amount!: number;
   public trx_ref!: string;
   public status!: string;
-  public membershipPlanId!: string;
-  public userId!: string;
+  public membershipPlanId!: number;
+  public userId!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -35,11 +35,11 @@ export default (sequelize: Sequelize) => {
         defaultValue: 'pending',
       },
       membershipPlanId: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       userId: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },

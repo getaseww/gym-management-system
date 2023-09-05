@@ -1,10 +1,10 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { Equipment } from "./equipment"; // Import the Equipment model if it's defined in a separate file
+import { Equipment } from "./Equipment"; // Import the Equipment model if it's defined in a separate file
 
 export class Inventory extends Model {
   public id!: string;
   public quantity!: number;
-  public equipmentId!: string;
+  public equipmentId!: number;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -31,8 +31,6 @@ export default (sequelize: Sequelize) => {
       modelName: "inventory",
       tableName: "inventory",
       timestamps: true,
-      createdAt: 'createdAt',
-      updatedAt: 'updatedAt',
     }
   );
 
