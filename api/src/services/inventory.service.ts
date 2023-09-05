@@ -1,7 +1,7 @@
 import async from 'async'
 import InventoryDal from '../dals/inventory.dal'
 import CustomError from '../errors/customError';
-import { Inventory } from '../type';
+import { Inventory } from '../models/Inventory';
 
 class InventoryService {
     create(payload: Inventory) {

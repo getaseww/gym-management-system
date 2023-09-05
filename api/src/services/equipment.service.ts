@@ -1,7 +1,7 @@
 import async from 'async'
 import EquipmentDal from '../dals/equipment.dal'
 import CustomError from '../errors/customError';
-import { Equipment } from '../type';
+import { Equipment } from '../models/Equipment';
 
 class EquipmentService {
     create(payload: Equipment) {

@@ -1,10 +1,10 @@
 import async from 'async'
 import ClassDal from '../dals/class.dal'
 import CustomError from '../errors/customError';
-import { Class } from '../type';
+import { FitnessClass } from '../models/FitnessClass';
 
 class ClassService {
-    create(payload: Class) {
+    create(payload: FitnessClass) {
         return new Promise((resolve, reject) => {
             async.waterfall([
                 (done: Function) => {
@@ -61,7 +61,7 @@ class ClassService {
                             done(new CustomError(error, 500, "Internal Server Error"), null)
                         })
                 },
-                (cla:Class, done:Function) => {
+                (cla:FitnessClass, done:Function) => {
                     ClassDal.update(cla, payload)
                         .then((result) => {
                             if (result) {

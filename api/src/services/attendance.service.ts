@@ -2,7 +2,7 @@ import async from 'async'
 import attendanceDal from '../dals/attendance.dal';
 import AttendanceDal from '../dals/attendance.dal'
 import CustomError from '../errors/customError';
-import { Attendance } from '../type';
+import { Attendance } from '../models/Attendance';
 
 class AttendanceService {
     create(payload: Attendance) {

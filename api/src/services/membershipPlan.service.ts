@@ -1,7 +1,7 @@
 import async from 'async'
 import MembershipPlanDal from '../dals/membershipPlan.dal'
 import CustomError from '../errors/customError';
-import { MembershipPlan } from '../type';
+import { MembershipPlan } from '../models/MembershipPlan';
 
 class MembershipPlanService {
     create(payload: MembershipPlan) {

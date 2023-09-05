@@ -2,7 +2,7 @@ import { User as UserType } from '../type';
 import { User } from '../models/User';
 
 class UserDal {
-    create(payload:User) {
+    create(payload:any) {
         return new Promise((resolve, reject) => {
             User.create({ data: payload })
                 .then((result:User) => resolve(result))

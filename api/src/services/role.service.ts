@@ -1,7 +1,7 @@
 import async from 'async'
 import RoleDal from '../dals/role.dal'
 import CustomError from '../errors/customError';
-import { Role } from '../type';
+import { Role } from '../models/Role';
 
 class RoleService {
     create(payload: Role) {

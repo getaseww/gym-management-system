@@ -8,8 +8,8 @@ export class User extends Model {
     public phoneNumber!: string;
     public password!: string;
     public sex!: string;
-    public roleId!: number;
-    public isAdmin!: string;
+    public roleId!: number|null;
+    public isAdmin!: string|null;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
   }

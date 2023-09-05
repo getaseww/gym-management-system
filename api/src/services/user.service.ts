@@ -1,7 +1,7 @@
 import async from 'async'
 import UserDal from '../dals/user.dal'
 import CustomError from '../errors/customError';
-import { User } from '../type';
+import { User } from '../models/User';
 import { encryptPassword } from '../utils/helpers';
 
 class UserService {

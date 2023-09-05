@@ -1,7 +1,7 @@
 import async from 'async'
 import PaymentDal from '../dals/payment.dal'
 import CustomError from '../errors/customError';
-import { Payment } from '../type';
+import { Payment } from '../models/Payment';
 import axios from 'axios';
 import { paymentHeader } from '../utils/helpers';
 

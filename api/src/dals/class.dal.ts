@@ -2,7 +2,7 @@ import { Class } from '../type';
 import { FitnessClass } from '../models/FitnessClass';
 
 class ClassDal {
-    create(payload:Class) {
+    create(payload:FitnessClass) {
         return new Promise((resolve, reject) => {
             FitnessClass.create({ data: payload })
                 .then((result) => resolve(result))
