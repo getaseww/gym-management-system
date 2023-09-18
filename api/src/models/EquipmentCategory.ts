@@ -35,9 +35,5 @@ export default (sequelize: Sequelize) => {
   );
 
   // Define associations
-  EquipmentCategory.hasMany(Equipment, {
-    sourceKey: 'id',
-    foreignKey: 'equipmentCategoryId',
-    as: 'equipment',
-  });
+ 
 };

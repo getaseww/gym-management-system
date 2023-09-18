@@ -54,17 +54,5 @@ export default (sequelize: Sequelize) => {
   );
 
   // Define associations
-  Payment.belongsTo(MembershipPlan, {
-    foreignKey: 'membershipPlanId',
-    as: 'membershipPlan',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
-
-  Payment.belongsTo(User, {
-    foreignKey: 'userId',
-    as: 'user',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
+  
 };

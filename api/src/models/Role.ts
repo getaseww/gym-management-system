@@ -30,9 +30,5 @@ export default (sequelize: Sequelize) => {
   );
 
   // Define associations if needed
-  Role.hasMany(User, {
-    sourceKey: 'id',
-    foreignKey: 'roleId',
-    as: 'user',
-  });
+  
 };

@@ -46,15 +46,5 @@ export default (sequelize: Sequelize) => {
     );
 
     // Define associations if needed
-    MembershipPlan.hasMany(Membership, {
-        sourceKey: 'id',
-        foreignKey: 'membershipPlanId',
-        as: 'membership',
-    });
-
-    MembershipPlan.hasMany(Payment, {
-        sourceKey: 'id',
-        foreignKey: 'membershipPlanId',
-        as: 'payment',
-    });
+    
 };

@@ -7,7 +7,7 @@ import cors from 'cors'
 import path from 'path'
 import routes from './routes';
 dotenv.config();
-import sequelize from './config/db';
+import db from './config/db';
 
 const app: Application = express();
 
@@ -39,19 +39,12 @@ passport.deserializeUser(function (user, done) {
 
 app.use(cors())
 app.use('/images', express.static(path.join(__dirname, "images")));
+db();
 
 
 routes(app);
 
 
-sequelize.sync().then(result => {
-    if (result) {
-        app.listen(process.env.PORT || 8000, () => {
-            console.log("backend is running on port " + process.env.PORT);
-        })
-    } else {
-        console.log("Database not connected!")
-    }
-}).catch(error => {
-    console.log(error);
-});
+app.listen(process.env.PORT || 8000, () => {
+    console.log("backend is running on port " + process.env.PORT);
+})

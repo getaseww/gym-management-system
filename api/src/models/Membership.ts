@@ -45,8 +45,8 @@ export default (sequelize: Sequelize) => {
   );
 
   // Define associations
-  Membership.belongsTo(MembershipPlan, {
-    foreignKey: 'membershipPlanId',
-    as: 'membershipPlan',
-  });
+  // Membership.belongsTo(MembershipPlan, {
+  //   foreignKey: 'membershipPlanId',
+  //   as: 'membershipPlan',
+  // });
 };

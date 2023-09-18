@@ -56,17 +56,6 @@ export default (sequelize: Sequelize) => {
   );
 
   // Define associations
-  Attendance.belongsTo(FitnessClass, {
-    foreignKey: 'classId',
-    as: 'class',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
-
-  Attendance.belongsTo(User, {
-    foreignKey: 'userId',
-    as: 'user',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
+ 
+  
 };

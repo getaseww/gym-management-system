@@ -58,24 +58,8 @@ export default (sequelize: Sequelize) => {
   );
 
   // Define associations
-  FitnessClass.belongsTo(User, {
-    foreignKey: 'userId',
-    as: 'user',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
-
-  FitnessClass.belongsTo(User, {
-    foreignKey: 'instructorId',
-    as: 'instructor',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
+  
 
   // Define association with Attendance model if needed
-  FitnessClass.hasMany(Attendance, {
-    sourceKey: 'id',
-    foreignKey: 'fitnessClassId',
-    as: 'attendance',
-  });
+ 
 };

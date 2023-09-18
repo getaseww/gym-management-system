@@ -1,4 +1,7 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
+import { Payment } from "./Payment";
+import { Attendance } from "./Attendance";
+import { FitnessClass } from "./FitnessClass";
 
 export class User extends Model {
     public id!: number;
@@ -61,4 +64,6 @@ export class User extends Model {
         tableName: "users",
       }
     );
+
+
   };

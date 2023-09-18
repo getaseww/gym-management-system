@@ -71,16 +71,12 @@ export default (sequelize: Sequelize) => {
     );
 
     // Define associations
-    Equipment.belongsTo(EquipmentCategory, {
-        foreignKey: 'equipmentCategoryId',
-        as: 'equipmentCategory',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE',
-    });
+    // Equipment.belongsTo(EquipmentCategory, {
+    //     foreignKey: 'equipmentCategoryId',
+    //     as: 'equipmentCategory',
+    //     onDelete: 'CASCADE',
+    //     onUpdate: 'CASCADE',
+    // });
 
-    Equipment.hasMany(Inventory, {
-        sourceKey: 'id',
-        foreignKey: 'equipmentId',
-        as: 'inventory',
-    });
+    
 };

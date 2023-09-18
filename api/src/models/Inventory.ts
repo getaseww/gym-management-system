@@ -35,10 +35,5 @@ export default (sequelize: Sequelize) => {
   );
 
   // Define associations
-  Inventory.belongsTo(Equipment, {
-    foreignKey: 'equipmentId',
-    as: 'equipment',
-    onDelete: 'CASCADE',
-    onUpdate: 'CASCADE',
-  });
+  
 };
