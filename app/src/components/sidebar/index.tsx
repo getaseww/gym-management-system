@@ -27,7 +27,7 @@ const Sidebar = ({
           true,
         "transition-all duration-300 ease-in-out": true,
         "w-[300px]": !collapsed,
-        "w-16": collapsed,
+        "w-[70px]": collapsed,
         "-translate-x-full": !shown,
       })}
     >

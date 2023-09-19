@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@heroicons/react': ^2.0.18
   '@radix-ui/react-slot': ^1.0.2
+  '@tanstack/react-table': ^8.10.0
   '@types/node': ^20.6.2
   '@types/react': ^18.2.15
   '@types/react-dom': ^18.2.7
@@ -31,6 +32,7 @@ specifiers:
 dependencies:
   '@heroicons/react': 2.0.18_react@18.2.0
   '@radix-ui/react-slot': 1.0.2_dpmmhqj3uzrk25jjzo7arvivk4
+  '@tanstack/react-table': 8.10.0_biqbaboplfbrettd7655fr4n2y
   class-variance-authority: 0.7.0
   classnames: 2.3.2
   clsx: 2.0.0
@@ -638,6 +640,23 @@ packages:
   /@remix-run/router/1.9.0:
     resolution: {integrity: sha512-bV63itrKBC0zdT27qYm6SDZHlkXwFL1xMBuhkn+X7l0+IIhNaH5wuuvZKp6eKhCD4KFhujhfhCT1YxXW6esUIA==}
     engines: {node: '>=14.0.0'}
+    dev: false
+
+  /@tanstack/react-table/8.10.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-FNhKE3525hryvuWw90xRbP16qNiq7OLJkDZopOKcwyktErLi1ibJzAN9DFwA/gR1br9SK4StXZh9JPvp9izrrQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      '@tanstack/table-core': 8.10.0
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /@tanstack/table-core/8.10.0:
+    resolution: {integrity: sha512-e701yAJ18aGDP6mzVworlFAmQ+gi3Wtqx5mGZUe2BUv4W4D80dJxUfkHdtEGJ6GryAnlCCNTej7eaJiYmPhyYg==}
+    engines: {node: '>=12'}
     dev: false
 
   /@types/json-schema/7.0.13:
