@@ -4,7 +4,7 @@ import { User } from '../models/User';
 class UserDal {
     create(payload:any) {
         return new Promise((resolve, reject) => {
-            User.create({ data: payload })
+            User.create(payload)
                 .then((result:User) => resolve(result))
                 .catch((error:any) => reject(error));
         });

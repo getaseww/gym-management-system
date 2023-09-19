@@ -3,9 +3,9 @@ import {EquipmentCategory} from '../models/EquipmentCategory';
 
 
 class EquipmentCategoryDal {
-    create(payload: EquipmentCategory) {
+    create(payload: any) {
         return new Promise((resolve, reject) => {
-            EquipmentCategory.create({ data: payload })
+            EquipmentCategory.create(payload)
                 .then((result: EquipmentCategory) => resolve(result))
                 .catch((error: any) => reject(error));
         });

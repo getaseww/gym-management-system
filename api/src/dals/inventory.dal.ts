@@ -3,9 +3,9 @@ import {Inventory} from '../models/Inventory';
 
 
 class InventoryDal {
-    create(payload: Inventory) {
+    create(payload: any) {
         return new Promise((resolve, reject) => {
-            Inventory.create({ data: payload })
+            Inventory.create(payload)
                 .then((result: Inventory) => resolve(result))
                 .catch((error: any) => reject(error));
         });

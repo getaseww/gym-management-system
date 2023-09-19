@@ -4,7 +4,7 @@ import { Payment } from '../models/Payment';
 class PaymentDal {
     create(payload: any) {
         return new Promise((resolve, reject) => {
-            Payment.create({ data: payload })
+            Payment.create(payload )
                 .then((result: Payment) => resolve(result))
                 .catch((error: any) => reject(error));
         });

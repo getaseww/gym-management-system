@@ -3,9 +3,9 @@ import {Role} from '../models/Role';
 
 
 class RoleDal {
-    create(payload:Role) {
+    create(payload:any) {
         return new Promise((resolve, reject) => {
-            Role.create({ data: payload })
+            Role.create(payload)
                 .then((result:Role) => resolve(result))
                 .catch((error:any) => reject(error));
         });

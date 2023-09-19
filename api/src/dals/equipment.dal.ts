@@ -2,9 +2,9 @@ import { Equipment as EquipmentType } from '../type';
 import { Equipment } from '../models/Equipment';
 
 class EquipmentDal {
-    create(payload: Equipment) {
+    create(payload: any) {
         return new Promise((resolve, reject) => {
-            Equipment.create({ data: payload })
+            Equipment.create(payload )
                 .then((result: Equipment) => resolve(result))
                 .catch((error: any) => reject(error));
         });

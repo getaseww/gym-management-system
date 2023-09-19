@@ -2,9 +2,9 @@ import { Attendance as AttendanceType } from '../type';
 import { Attendance } from '../models/Attendance';
 
 class AttendanceDal {
-    create(payload: Attendance) {
+    create(payload: any) {
         return new Promise((resolve, reject) => {
-            Attendance.create({ data: payload })
+            Attendance.create(payload)
                 .then((result: Attendance) => resolve(result))
                 .catch((error: any) => reject(error));
         });

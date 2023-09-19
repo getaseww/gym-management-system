@@ -42,14 +42,12 @@ export default async () => {
 
   User.hasMany(Attendance, {
     foreignKey: 'userId',
-    as: 'user',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   });
 
   User.hasMany(FitnessClass, {
     foreignKey: 'userId',
-    as: 'user',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   });
@@ -64,7 +62,6 @@ export default async () => {
   Role.hasMany(User, {
     sourceKey: 'id',
     foreignKey: 'roleId',
-    as: 'user',
   });
   MembershipPlan.hasMany(MembershipPlan, {
     sourceKey: 'id',
@@ -77,12 +74,16 @@ export default async () => {
     foreignKey: 'membershipPlanId',
     as: 'payment',
   });
-  Inventory.belongsTo(Equipment, {
+  Equipment.hasMany(Inventory, {
     foreignKey: 'equipmentId',
-    as: 'equipment',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   });
+  // Inventory.belongsTo(Equipment, {
+  //   foreignKey: 'equipmentId',
+  //   onDelete: 'CASCADE',
+  //   onUpdate: 'CASCADE',
+  // });
   FitnessClass.hasMany(Attendance, {
     sourceKey: 'id',
     foreignKey: 'fitnessClassId',
@@ -93,11 +94,7 @@ export default async () => {
     foreignKey: 'equipmentCategoryId',
     as: 'equipment',
   });
-  Equipment.hasMany(Inventory, {
-    sourceKey: 'id',
-    foreignKey: 'equipmentId',
-    as: 'inventory',
-});
+ 
 
   sequelize
     .sync({ force: false, alter: false })

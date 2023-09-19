@@ -3,9 +3,9 @@ import {MembershipPlan} from '../models/MembershipPlan';
 
 
 class MembershipPlanDal {
-    create(payload: MembershipPlan) {
+    create(payload: any) {
         return new Promise((resolve, reject) => {
-            MembershipPlan.create({ data: payload })
+            MembershipPlan.create(payload)
                 .then((result: MembershipPlan) => resolve(result))
                 .catch((error: any) => reject(error));
         });
