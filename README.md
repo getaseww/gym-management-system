@@ -36,13 +36,26 @@ Before setting up the Gym Management System, make sure you have the following pr
    cd gym-management-system
    ```
 
-3. Install dependencies:
+3. Install dependencies and run api:
+   
+    ```bash
+   cd api
+   ```
+
+   ```bash
+   npm install
+   ```
+4. Install dependencies and run app:
+   
+    ```bash
+   cd app
+   ```
 
    ```bash
    npm install
    ```
 
-4. Configure the application by creating a `.env` file and setting the following environment variables:
+5. Configure the application by creating a `.env` file and setting the following environment variables:
 
    ```dotenv
    PORT=3000
@@ -50,13 +63,13 @@ Before setting up the Gym Management System, make sure you have the following pr
    CHAPA_API_SECRET=your_chapa_api_secret
    ```
 
-5. Start the application:
+6. Start the application:
 
    ```bash
    npm start
    ```
 
-6. Access the Gym Management System in your web browser at `http://localhost:3000`.
+7. Access the Gym Management System in your web browser at `http://localhost:3000`.
 
 ## Usage
 
