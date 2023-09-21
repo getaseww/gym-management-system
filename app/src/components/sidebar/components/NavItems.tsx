@@ -17,17 +17,17 @@ export type NavItem = {
 export const defaultNavItems: NavItem[] = [
   {
     label: "Dashboard",
-    href: "/",
+    href: "/dashboard",
     icon: <HomeIcon className="w-6 h-6" />,
   },
   {
     label: "Payments",
-    href: "/payments",
+    href: "/dashboard/payment",
     icon: <BanknotesIcon className="w-6 h-6" />,
   },
   {
     label: "Instructors",
-    href: "/instructor",
+    href: "/dashboard/instructor",
     icon: <UserGroupIcon className="w-6 h-6" />,
   },
   {
@@ -36,33 +36,33 @@ export const defaultNavItems: NavItem[] = [
     icon: <UserGroupIcon className="w-6 h-6" />,
   },
   {
-    label: "Classes",
-    href: "/classes",
+    label: "Fitness Classes",
+    href: "/dashboard/fitness-class",
     icon: <FolderIcon className="w-6 h-6" />,
   },
   {
     label: "Attendance",
-    href: "/attendance",
+    href: "/dashboard/attendance",
     icon: <FolderIcon className="w-6 h-6" />,
   },
   {
     label: "Membership Plans",
-    href: "/membership_plan",
+    href: "/dashboard/membership-plan",
     icon: <CalendarIcon className="w-6 h-6" />,
   },
   {
     label: "Equipment Category",
-    href: "/equipment_category",
+    href: "/dashboard/equipment-category",
     icon: <CalendarIcon className="w-6 h-6" />,
   },
   {
     label: "Equipment",
-    href: "/equipment",
+    href: "/dashboard/equipment",
     icon: <CalendarIcon className="w-6 h-6" />,
   },
   {
     label: "Inventory",
-    href: "/inventory",
+    href: "/dashboard/inventory",
     icon: <CalendarIcon className="w-6 h-6" />,
   },
 ];
