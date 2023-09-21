@@ -6,41 +6,36 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Payment = {
+export type MembershipPlan = {
     id: string
-    amount: number
-    status: "pending" | "processing" | "success" | "failed"
-    email: string
+    planName: string
+    price:number
 }
 
-export const paymentColumns: ColumnDef<Payment>[] = [
+export const membershipPlanColumns: ColumnDef<MembershipPlan>[] = [
     {
-        accessorKey: "status",
-        header: "Status",
-    },
-    {
-        accessorKey: "email",
+        accessorKey: "planName",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Email
+                    Name
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
         },
     },
     {
-        accessorKey: "amount",
+        accessorKey: "price",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Amount
+                    Price
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )

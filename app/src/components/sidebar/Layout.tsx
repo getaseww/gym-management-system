@@ -10,8 +10,8 @@ const Layout = (props: PropsWithChildren) => {
       className={classNames({
         "w-full":true,
         "grid bg-zinc-100 min-h-screen": true,
-        "grid-cols-sidebar": !collapsed,
-        "grid-cols-sidebar-collapsed": collapsed,
+        "md:grid-cols-sidebar": !collapsed,
+        "md:grid-cols-sidebar-collapsed": collapsed,
         "transition-[grid-template-columns] duration-300 ease-in-out": true,
       })}
     >
@@ -20,7 +20,7 @@ const Layout = (props: PropsWithChildren) => {
         setCollapsed={setSidebarCollapsed}
         shown={showSidebar}
       />
-      <div className="">
+      <div className="w-full">
         <Navbar onMenuButtonClick={() => setShowSidebar((prev) => !prev)} />
         {props.children}
       </div>

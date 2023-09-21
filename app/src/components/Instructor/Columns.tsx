@@ -6,17 +6,42 @@ import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Payment = {
+export type Instructor = {
     id: string
-    amount: number
-    status: "pending" | "processing" | "success" | "failed"
+    firstName: string
+    lastName:string 
     email: string
+    sex:'male'| 'female'
 }
 
-export const paymentColumns: ColumnDef<Payment>[] = [
+export const instructorColumns: ColumnDef<Instructor>[] = [
     {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: "firstName",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    First Name
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
+    },
+    {
+        accessorKey: "lastName",
+        header: ({ column }) => {
+            return (
+                <Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Last Name
+                    <ArrowUpDown className="ml-2 h-4 w-4" />
+                </Button>
+            )
+        },
     },
     {
         accessorKey: "email",
@@ -33,14 +58,14 @@ export const paymentColumns: ColumnDef<Payment>[] = [
         },
     },
     {
-        accessorKey: "amount",
+        accessorKey: "sex",
         header: ({ column }) => {
             return (
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                 >
-                    Amount
+                    Sex
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )

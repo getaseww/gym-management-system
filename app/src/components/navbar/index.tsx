@@ -10,7 +10,7 @@ const Navbar = (props: Props) => {
         "bg-white text-zinc-500": true, // colors
         "border-black":true,
         "flex items-center": true, // layout
-        "w-screen md:w-full sticky z-10 px-4 shadow-sm h-[73px] top-0 ": true, //positioning & styling
+        "w-full sticky z-10 px-4 shadow-sm h-[73px] top-0 ": true, //positioning & styling
       })}
     >
       <div className="font-bold text-lg">Admin Panel</div>

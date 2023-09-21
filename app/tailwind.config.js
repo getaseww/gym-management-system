@@ -72,7 +72,7 @@ module.exports = {
       },
       gridTemplateColumns:{
         'sidebar':`300px  calc(100vw - 300px)`,
-        'sidebar-collapsed':"70px  calc(100vw - 70px)"
+        'sidebar-collapsed':"70px  calc(100vw - 70px)",
       }
     },
   },

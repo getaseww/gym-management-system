@@ -1,6 +1,8 @@
-import { columns } from '@/components/Payment/Columns'
+import { paymentColumns } from '@/components/Payment/Columns'
 import Layout from '../../components/sidebar/Layout'
 import { DataTable } from '@/components/DataTable'
+import { inventoryColumns } from '@/components/Inventory/Columns'
+import { fitnessClassColumns } from '@/components/FitnessClass/Columns'
 
 export default function Dashboard() {
 
@@ -16,10 +18,10 @@ export default function Dashboard() {
     email: "getasew@example.com",
   }]
   return (
-    <div className='w-full'>
+    <div className='w-full justify-center'>
       <Layout>
 
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={fitnessClassColumns} data={data} />
 
         {/* <Button>Hello</Button> */}
         {/* <Classes/> */}
