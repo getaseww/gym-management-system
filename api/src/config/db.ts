@@ -16,23 +16,27 @@ export let sequelize: Sequelize;
 
 export default async () => {
 
-  sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, '', {
+  sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_USER, process.env.DATABASE_PASSWORD, {
     host: process.env.DATABASE_HOST,
     dialect: "mysql",
     dialectOptions: { decimalNumbers: true },
     logging: false,
   });
 
-  UserFactory(sequelize);
-  PaymentFactory(sequelize);
-  AttendanceFactory(sequelize);
-  FitnessClassFactory(sequelize);
-  EquipmentFactory(sequelize);
-  EquipmentCategoryFactory(sequelize);
-  InventoryFactory(sequelize);
-  MembershipPlanFactory(sequelize);
   RoleFactory(sequelize);
+  UserFactory(sequelize);
+  MembershipPlanFactory(sequelize);
+  PaymentFactory(sequelize);
+  FitnessClassFactory(sequelize);
+  AttendanceFactory(sequelize);
+  EquipmentCategoryFactory(sequelize);
+  EquipmentFactory(sequelize);
+  InventoryFactory(sequelize);
 
+  Role.hasMany(User, {
+    sourceKey: 'id',
+    foreignKey: 'roleId',
+  });
   User.hasMany(Payment, {
     foreignKey: 'userId',
     as: 'user',
@@ -59,10 +63,7 @@ export default async () => {
     onUpdate: 'CASCADE',
   });
 
-  Role.hasMany(User, {
-    sourceKey: 'id',
-    foreignKey: 'roleId',
-  });
+
   MembershipPlan.hasMany(MembershipPlan, {
     sourceKey: 'id',
     foreignKey: 'membershipPlanId',
@@ -74,16 +75,16 @@ export default async () => {
     foreignKey: 'membershipPlanId',
     as: 'payment',
   });
-  Equipment.hasMany(Inventory, {
+  Equipment.hasOne(Inventory, {
     foreignKey: 'equipmentId',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   });
-  // Inventory.belongsTo(Equipment, {
-  //   foreignKey: 'equipmentId',
-  //   onDelete: 'CASCADE',
-  //   onUpdate: 'CASCADE',
-  // });
+  Inventory.belongsTo(Equipment, {
+    foreignKey: 'equipmentId',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  });
   FitnessClass.hasMany(Attendance, {
     sourceKey: 'id',
     foreignKey: 'fitnessClassId',
@@ -94,7 +95,7 @@ export default async () => {
     foreignKey: 'equipmentCategoryId',
     as: 'equipment',
   });
- 
+
 
   sequelize
     .sync({ force: false, alter: false })

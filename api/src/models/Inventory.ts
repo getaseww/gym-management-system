@@ -22,7 +22,7 @@ export default (sequelize: Sequelize) => {
         allowNull: false,
       },
       equipmentId: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },

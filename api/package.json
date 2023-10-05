@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon --watch src --exec ts-node src/app.ts",
     "start": "npm i && tsc && ts-node build/src/app.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "seed":"npx sequelize-cli db:seed:all"
   },
   "author": "",
   "license": "ISC",
