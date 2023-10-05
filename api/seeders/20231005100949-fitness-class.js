@@ -6,14 +6,13 @@ module.exports = {
     //  Add seed commands here.
 
     // Example:
-    await queryInterface.bulkInsert('users', [{
-      firstName: 'Get',
-      lastName: 'Wale',
-      email: 'get@gmail.com',
-      phoneNumber: '0930405060',
-      password: 'password',
-      sex: 'Male',
-      roleId:1,
+    await queryInterface.bulkInsert('fitness_classes', [{
+      className: 'Cardio',
+      description: 'Test description',
+      startDate: '2023-11-04 13:37:59',
+      endDate: '2023-11-04 13:37:59',
+      userId:1,
+      instructorId:1,
       createdAt:'2023-11-04 13:37:59', 
       updatedAt:'2023-11-04 13:37:59',
     }], {});
@@ -25,7 +24,7 @@ module.exports = {
      *
      * Example:
      */
-    await queryInterface.bulkDelete('users', null, {});
+    await queryInterface.bulkDelete('fitness_classes', null, {});
 
   }
 };
